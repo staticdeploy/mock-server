@@ -6,3 +6,22 @@
 # sd-mock-server
 
 Easy to use, no frills mock server.
+
+## Install
+
+```sh
+npm i --save-dev sd-mock-server
+```
+
+## Usage
+
+* create a directory `mock-server`
+* place some handler files in it
+* run `sd-mock-server`
+
+## CLI options
+
+* `root`: mock server root directory, defaults to `mock-server`
+* `port`: mock server port, defaults to `3456`
+* `delay`: milliseconds to delay responses by, defaults to 0
+* `watch`: boolean flag, makes the server reload on file changes
