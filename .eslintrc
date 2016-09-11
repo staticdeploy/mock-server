@@ -1,0 +1,6 @@
+{
+    "extends": "eslint-config-staticdeploy",
+    "rules": {
+        "new-cap": [0]
+    }
+}
