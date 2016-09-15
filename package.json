@@ -1,6 +1,6 @@
 {
   "name": "sd-mock-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Easy to use, no frills mock server",
   "main": "src/bin/sd-mock-server.js",
   "bin": {
