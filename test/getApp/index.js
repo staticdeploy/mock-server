@@ -50,15 +50,16 @@ describe("getApp", () => {
 
     describe("returns an express app", () => {
 
-        it("whose responses carry cors headers", () => {
+        it("whose responses carry cors headers allowing the requesting origin", () => {
             const app = getApp({
                 root: "mock-server",
                 delay: 0
             });
             return request(app)
                 .get("/users/myUserId")
+                .set("Origin", "http://localhost:8080")
                 .expect(200)
-                .expect("Access-Control-Allow-Origin", "*");
+                .expect("Access-Control-Allow-Origin", "http://localhost:8080");
         });
 
         describe("configured according to the contents of the server root directory", () => {

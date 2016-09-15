@@ -26,7 +26,7 @@ module.exports = function getApp (options) {
     const {root, delay} = options;
     return express()
         .use(slow({delay}))
-        .use(cors({origin: "*", credentials: true}))
+        .use(cors({origin: /.*/, credentials: true}))
         .use(bodyParser.json())
         .use(getRouter(root));
 };
