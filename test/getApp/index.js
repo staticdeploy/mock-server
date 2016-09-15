@@ -48,9 +48,9 @@ describe("getApp", () => {
         mockRequire.stopAll();
     });
 
-    describe("returns an express app configured according to the contents of the server root directory", () => {
+    describe("returns an express app", () => {
 
-        it("test case GET /users/:userId", () => {
+        it("whose responses carry cors headers", () => {
             const app = getApp({
                 root: "mock-server",
                 delay: 0
@@ -58,102 +58,117 @@ describe("getApp", () => {
             return request(app)
                 .get("/users/myUserId")
                 .expect(200)
-                .expect({
-                    method: "GET",
-                    path: "/users/myUserId",
-                    params: {
-                        userId: "myUserId"
-                    },
-                    body: {}
+                .expect("Access-Control-Allow-Origin", "*");
+        });
+
+        describe("configured according to the contents of the server root directory", () => {
+
+            it("test case GET /users/:userId", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
                 });
-        });
-
-        it("test case PUT /users/:userId", () => {
-            const app = getApp({
-                root: "mock-server",
-                delay: 0
+                return request(app)
+                    .get("/users/myUserId")
+                    .expect(200)
+                    .expect({
+                        method: "GET",
+                        path: "/users/myUserId",
+                        params: {
+                            userId: "myUserId"
+                        },
+                        body: {}
+                    });
             });
-            return request(app)
-                .put("/users/myUserId")
-                .send({key: "value"})
-                .expect(200)
-                .expect({
-                    method: "PUT",
-                    path: "/users/myUserId",
-                    params: {
-                        userId: "myUserId"
-                    },
-                    body: {key: "value"}
+
+            it("test case PUT /users/:userId", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
                 });
-        });
-
-        it("test case GET /users", () => {
-            const app = getApp({
-                root: "mock-server",
-                delay: 0
+                return request(app)
+                    .put("/users/myUserId")
+                    .send({key: "value"})
+                    .expect(200)
+                    .expect({
+                        method: "PUT",
+                        path: "/users/myUserId",
+                        params: {
+                            userId: "myUserId"
+                        },
+                        body: {key: "value"}
+                    });
             });
-            return request(app)
-                .get("/users")
-                .expect(200)
-                .expect({
-                    method: "GET",
-                    path: "/users",
-                    params: {},
-                    body: {}
+
+            it("test case GET /users", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
                 });
-        });
-
-        it("test case POST /users", () => {
-            const app = getApp({
-                root: "mock-server",
-                delay: 0
+                return request(app)
+                    .get("/users")
+                    .expect(200)
+                    .expect({
+                        method: "GET",
+                        path: "/users",
+                        params: {},
+                        body: {}
+                    });
             });
-            return request(app)
-                .post("/users")
-                .send({key: "value"})
-                .expect(200)
-                .expect({
-                    method: "POST",
-                    path: "/users",
-                    params: {},
-                    body: {key: "value"}
+
+            it("test case POST /users", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
                 });
-        });
-
-        it("test case GET /", () => {
-            const app = getApp({
-                root: "mock-server",
-                delay: 0
+                return request(app)
+                    .post("/users")
+                    .send({key: "value"})
+                    .expect(200)
+                    .expect({
+                        method: "POST",
+                        path: "/users",
+                        params: {},
+                        body: {key: "value"}
+                    });
             });
-            return request(app)
-                .get("/")
-                .expect(200)
-                .expect({
-                    method: "GET",
-                    path: "/",
-                    params: {},
-                    body: {}
+
+            it("test case GET /", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
                 });
-        });
-
-        it("test case GET /non-existing-path , non existing path", () => {
-            const app = getApp({
-                root: "mock-server",
-                delay: 0
+                return request(app)
+                    .get("/")
+                    .expect(200)
+                    .expect({
+                        method: "GET",
+                        path: "/",
+                        params: {},
+                        body: {}
+                    });
             });
-            return request(app)
-                .get("/non-existing-path")
-                .expect(404);
-        });
 
-        it("test case POST / , non existing method", () => {
-            const app = getApp({
-                root: "mock-server",
-                delay: 0
+            it("test case GET /non-existing-path , non existing path", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
+                });
+                return request(app)
+                    .get("/non-existing-path")
+                    .expect(404);
             });
-            return request(app)
-                .post("/")
-                .expect(404);
+
+            it("test case POST / , non existing method", () => {
+                const app = getApp({
+                    root: "mock-server",
+                    delay: 0
+                });
+                return request(app)
+                    .post("/")
+                    .expect(404);
+            });
+
         });
 
     });

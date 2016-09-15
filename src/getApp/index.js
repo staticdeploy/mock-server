@@ -28,7 +28,7 @@ module.exports = function getApp (options) {
         // connect-slow doesn't support 0ms delays. Temporary fix until
         // bahmutov/connect-slow #5 is resolved
         .use(slow({delay: (delay === 0 ? 1 : delay)}))
-        .use(cors({origin: ["*"], credentials: true}))
+        .use(cors({origin: "*", credentials: true}))
         .use(bodyParser.json())
         .use(getRouter(root));
 };
