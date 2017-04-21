@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/sd-mock-server.svg)](https://badge.fury.io/js/sd-mock-server)
 [![Build Status](https://travis-ci.org/staticdeploy/sd-mock-server.svg?branch=master)](https://travis-ci.org/staticdeploy/sd-mock-server)
-[![Coverage Status](https://coveralls.io/repos/github/staticdeploy/sd-mock-server/badge.svg?branch=master)](https://coveralls.io/github/staticdeploy/sd-mock-server?branch=master)
+[![coverage](https://codecov.io/github/staticdeploy/sd-mock-server/coverage.svg?branch=master)](https://codecov.io/github/staticdeploy/sd-mock-server?branch=master)
 [![Dependency Status](https://david-dm.org/staticdeploy/sd-mock-server.svg)](https://david-dm.org/staticdeploy/sd-mock-server)
 [![devDependency Status](https://david-dm.org/staticdeploy/sd-mock-server/dev-status.svg)](https://david-dm.org/staticdeploy/sd-mock-server#info=devDependencies)
 
@@ -14,7 +14,7 @@ Easy to use, no frills mock server.
 npm i --save-dev sd-mock-server
 ```
 
-## Usage
+## Usage
 
 * create a directory `mock-server`
 * place some handler files in it
@@ -26,3 +26,4 @@ npm i --save-dev sd-mock-server
 * `port`: mock server port, defaults to `3456`
 * `delay`: milliseconds to delay responses by, defaults to 0
 * `watch`: boolean flag, makes the server reload on file changes
+* `require`: require a module before startup, can be used multiple times

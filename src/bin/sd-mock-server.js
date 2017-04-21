@@ -33,6 +33,11 @@ const argv = yargs
         describe: "Reload server on file changes",
         type: "boolean"
     })
+    .option("require", {
+        default: [],
+        describe: "Require the given modules",
+        type: "array"
+    })
     .argv;
 
 startServer(argv);
