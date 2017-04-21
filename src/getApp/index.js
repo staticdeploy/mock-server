@@ -26,10 +26,10 @@ function getRouter (root) {
 }
 
 module.exports = function getApp (options) {
-    const {root, delay, bodyLimit} = options;
+    const {root, delay} = options;
     return express()
         .use(slow({delay}))
         .use(cors({origin: /.*/, credentials: true}))
-        .use(bodyParser.json({limit: bodyLimit}))
+        .use(bodyParser.json({limit: "1gb"}))
         .use(getRouter(root));
 };
