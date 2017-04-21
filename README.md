@@ -14,7 +14,7 @@ Easy to use, no frills mock server.
 npm i --save-dev sd-mock-server
 ```
 
-## Usage
+## Usage
 
 * create a directory `mock-server`
 * place some handler files in it
@@ -24,5 +24,7 @@ npm i --save-dev sd-mock-server
 
 * `root`: mock server root directory, defaults to `mock-server`
 * `port`: mock server port, defaults to `3456`
+* `bodyLimit`: string to set the maximum body size, defaults to `100kb`
 * `delay`: milliseconds to delay responses by, defaults to 0
 * `watch`: boolean flag, makes the server reload on file changes
+* `require`: array of modules to require, defaults to `[]`
