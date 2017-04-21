@@ -1,6 +1,7 @@
+# Npm files and folders
 node_modules/
 npm-debug.log
-lib/
+
+# Nyc (code coverage) folders
 coverage/
-.env
 .nyc_output
