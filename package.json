@@ -7,8 +7,8 @@
     "sd-mock-server": "src/bin/sd-mock-server.js"
   },
   "scripts": {
-    "coverage": "env NODE_ENV=test NODE_PATH=src nyc --reporter=lcov npm test",
-    "coveralls": "coveralls",
+    "coverage": "env NODE_ENV=test nyc --reporter=lcov npm run test",
+    "codecov": "codecov",
     "test": "env NODE_PATH=src mocha --recursive test",
     "lint": "eslint src"
   },
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "coveralls": "^2.13.0",
+    "codecov": "^2.1.0",
     "eslint": "^3.19.0",
     "eslint-config-staticdeploy": "^3.0.0",
     "lodash.sortby": "^4.7.0",
