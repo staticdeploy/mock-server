@@ -17,7 +17,8 @@ function getRouter (root) {
         // would not include the changes that triggered the server
         // configuration
         decache(handlerRequirePath);
-        const handler = require(handlerRequirePath);
+        const handlerExport = require(handlerRequirePath);
+        const handler = handlerExport && handlerExport.__esModule ? handlerExport.default : handlerExport;
         // Register route
         router[method](path, handler);
     });
@@ -25,10 +26,10 @@ function getRouter (root) {
 }
 
 module.exports = function getApp (options) {
-    const {root, delay} = options;
+    const {root, delay, bodyLimit} = options;
     return express()
         .use(slow({delay}))
         .use(cors({origin: /.*/, credentials: true}))
-        .use(bodyParser.json())
+        .use(bodyParser.json({limit: bodyLimit}))
         .use(getRouter(root));
 };

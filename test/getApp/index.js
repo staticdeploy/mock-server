@@ -1,6 +1,6 @@
 const mockFs = require("mock-fs");
 const mockRequire = require("mock-require");
-const request = require("supertest-as-promised");
+const request = require("supertest");
 
 const getApp = require("getApp");
 

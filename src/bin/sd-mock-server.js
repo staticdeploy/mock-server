@@ -28,10 +28,21 @@ const argv = yargs
         describe: "Milliseconds to delay responses by",
         type: "number"
     })
+    .option("bodyLimit", {
+        default: "100kb",
+        describe: "Controls the maximum request body size",
+        type: "string"
+    })
     .option("watch", {
         default: false,
         describe: "Reload server on file changes",
         type: "boolean"
+    })
+    .option("require", {
+        alias: "requiredModules",
+        default: [],
+        describe: "Require the given modules",
+        type: "array"
     })
     .argv;
 

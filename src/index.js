@@ -8,7 +8,8 @@ const {basename} = require("path");
 const getApp = require("./getApp");
 
 module.exports = function startServer (options) {
-    const {root, watch, port} = options;
+    const {root, watch, port, requiredModules} = options;
+    requiredModules.forEach(require);
     const server = createServer()
         .addListener("request", getApp(options))
         .listen(port, () => {
