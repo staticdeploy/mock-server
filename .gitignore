@@ -3,3 +3,4 @@ npm-debug.log
 lib/
 coverage/
 .env
+.nyc_output

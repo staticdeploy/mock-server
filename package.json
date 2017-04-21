@@ -7,8 +7,8 @@
     "sd-mock-server": "src/bin/sd-mock-server.js"
   },
   "scripts": {
-    "coverage": "env NODE_PATH=src istanbul cover $(npm bin)/_mocha -- --recursive test",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "coverage": "env NODE_ENV=test NODE_PATH=src nyc --reporter=lcov npm test",
+    "coveralls": "coveralls",
     "test": "env NODE_PATH=src mocha --recursive test",
     "lint": "eslint src"
   },
@@ -47,11 +47,11 @@
     "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
     "eslint-config-staticdeploy": "^3.0.0",
-    "istanbul": "^0.4.5",
     "lodash.sortby": "^4.7.0",
     "mocha": "^3.2.0",
     "mock-fs": "^3.11.0",
     "mock-require": "^2.0.2",
+    "nyc": "^10.2.0",
     "supertest": "^3.0.0"
   }
 }
