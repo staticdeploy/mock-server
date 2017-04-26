@@ -19,6 +19,9 @@ function getRouter (root) {
         decache(handlerRequirePath);
         const handlerExport = require(handlerRequirePath);
         const handler = handlerExport && handlerExport.__esModule ? handlerExport.default : handlerExport;
+        if (typeof handler !== "function") {
+            throw new Error(`Handler file for route "${method.toUpperCase()} ${path}" must export a function`);
+        }
         // Register route
         router[method](path, handler);
     });
