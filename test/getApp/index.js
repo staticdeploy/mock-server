@@ -1,3 +1,4 @@
+const {expect} = require("chai");
 const mockFs = require("mock-fs");
 const mockRequire = require("mock-require");
 const request = require("supertest");
@@ -6,49 +7,50 @@ const getApp = require("getApp");
 
 describe("getApp", () => {
 
-    before(() => {
-        mockFs({
-            "mock-server": {
-                "users": {
-                    "{userId}": {
-                        "get.js": "",
-                        "put.js": "",
-                        "nonHandler": ""
-                    },
-                    "get.js": "",
-                    "post.js": "",
-                    "nonHandler.js": ""
-                },
-                "get.js": "",
-                "post": ""
-            }
-        });
-        const requireBasePath = `${process.cwd()}/mock-server`;
-        const handlerRequirePaths = [
-            `${requireBasePath}/users/{userId}/get.js`,
-            `${requireBasePath}/users/{userId}/put.js`,
-            `${requireBasePath}/users/get.js`,
-            `${requireBasePath}/users/post.js`,
-            `${requireBasePath}/get.js`
-        ];
-        const handler = (req, res) => {
-            res.status(200).send({
-                method: req.method,
-                path: req.path,
-                params: req.params,
-                body: req.body
-            });
-        };
-        handlerRequirePaths.forEach(handlerRequirePath => {
-            mockRequire(handlerRequirePath, handler);
-        });
-    });
-    after(() => {
+    afterEach(() => {
         mockFs.restore();
         mockRequire.stopAll();
     });
 
     describe("returns an express app", () => {
+
+        beforeEach(() => {
+            mockFs({
+                "mock-server": {
+                    "users": {
+                        "{userId}": {
+                            "get.js": "",
+                            "put.js": "",
+                            "nonHandler": ""
+                        },
+                        "get.js": "",
+                        "post.js": "",
+                        "nonHandler.js": ""
+                    },
+                    "get.js": "",
+                    "post": ""
+                }
+            });
+            const requireBasePath = `${process.cwd()}/mock-server`;
+            const handlerRequirePaths = [
+                `${requireBasePath}/users/{userId}/get.js`,
+                `${requireBasePath}/users/{userId}/put.js`,
+                `${requireBasePath}/users/get.js`,
+                `${requireBasePath}/users/post.js`,
+                `${requireBasePath}/get.js`
+            ];
+            const handler = (req, res) => {
+                res.status(200).send({
+                    method: req.method,
+                    path: req.path,
+                    params: req.params,
+                    body: req.body
+                });
+            };
+            handlerRequirePaths.forEach(handlerRequirePath => {
+                mockRequire(handlerRequirePath, handler);
+            });
+        });
 
         it("whose responses carry cors headers allowing the requesting origin", () => {
             const app = getApp({
@@ -172,6 +174,22 @@ describe("getApp", () => {
 
         });
 
+    });
+
+    it("throws an error if a handler file doens't export a function", () => {
+        mockFs({
+            "mock-server": {
+                "get.js": ""
+            }
+        });
+        mockRequire(`${process.cwd()}/mock-server/get.js`, {});
+        const troublemaker = () => {
+            getApp({
+                root: "mock-server",
+                delay: 0
+            });
+        };
+        expect(troublemaker).to.throw("Handler file for route \"GET /\" must export a function");
     });
 
 });

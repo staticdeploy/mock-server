@@ -4,7 +4,8 @@ const methods = require("methods");
 const {basename, extname} = require("path");
 
 /*
-*   A handler file is a .js file which name matches an http method. Examples:
+*   A handler file is a .js (or .something) file whose name matches an http
+*   method. Examples:
 *     - get.js
 *     - post.js
 *   The function returns an array of paths relative to the input directory.
@@ -29,7 +30,7 @@ const {basename, extname} = require("path");
 module.exports = function getHandlersPaths (directory) {
     return recursiveReaddirSync(directory)
         .filter(name => (
-            extname(name) === ".js" &&
-            includes(methods, basename(name, ".js"))
+            extname(name) !== "" &&
+            includes(methods, basename(name, extname(name)))
         ));
 };
