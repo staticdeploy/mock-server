@@ -2,7 +2,7 @@ const {expect} = require("chai");
 const includes = require("lodash.includes");
 const mockFs = require("mock-fs");
 const methods = require("methods");
-const {basename, isAbsolute} = require("path");
+const {basename, extname, isAbsolute} = require("path");
 
 const getHandlersPaths = require("getApp/getHandlersPaths");
 
@@ -20,6 +20,10 @@ describe("getHandlersPaths", () => {
                     "get.js": "",
                     "post.js": "",
                     "nonHandler.js": ""
+                },
+                "typescripts": {
+                    "get.ts": "",
+                    "post.ts": ""
                 },
                 "get.js": "",
                 "post": ""
@@ -46,17 +50,17 @@ describe("getHandlersPaths", () => {
             });
         });
 
-        it("is an array of .js file paths", () => {
+        it("is an array of .something file paths", () => {
             const paths = getHandlersPaths("mock-server");
             paths.forEach(path => {
-                expect(path).to.match(/\.js$/);
+                expect(extname(path)).not.to.equal("");
             });
         });
 
         it("is an array of paths whose basename is a lowercase http method", () => {
             const paths = getHandlersPaths("mock-server");
             paths.forEach(path => {
-                const isBasenameHttpMethod = includes(methods, basename(path, ".js"));
+                const isBasenameHttpMethod = includes(methods, basename(path, extname(path)));
                 expect(isBasenameHttpMethod).to.equal(true);
             });
         });
@@ -78,6 +82,8 @@ describe("getHandlersPaths", () => {
             "users/{userId}/put.js",
             "users/get.js",
             "users/post.js",
+            "typescripts/get.ts",
+            "typescripts/post.ts",
             "get.js"
         ].sort();
         expect(paths).to.deep.equal(expectedPaths);

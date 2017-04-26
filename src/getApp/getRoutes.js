@@ -1,4 +1,4 @@
-const {basename, join, resolve} = require("path");
+const {basename, extname, join, resolve} = require("path");
 
 const getHandlersPaths = require("./getHandlersPaths");
 const toExpressPath = require("./toExpressPath");
@@ -12,7 +12,7 @@ module.exports = function getRoutes (root) {
     return getHandlersPaths(root)
         .map(handlerPath => ({
             handlerRequirePath: join(resolve(root), handlerPath),
-            method: basename(handlerPath, ".js"),
+            method: basename(handlerPath, extname(handlerPath)),
             path: toExpressPath(handlerPath)
         }));
 };
