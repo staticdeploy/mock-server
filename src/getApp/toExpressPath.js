@@ -1,3 +1,5 @@
+const {sep} = require("path");
+
 /*
 *   Converts a handlerPath into an expressPath, using express url parameters
 *   syntax and prepending the path with a / character. Examples:
@@ -7,7 +9,7 @@
 module.exports = function toExpressPath (handlerPath) {
     return handlerPath
         // Split into tokens
-        .split("/")
+        .split(sep)
         // Remove the last token `${method}.js`
         .slice(0, -1)
         // Convert tokens with the form "{param}" into ":param"
