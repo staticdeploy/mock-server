@@ -5,12 +5,14 @@ node_js:
 
 deploy:
   provider: npm
-  email: paolo.scanferla@mondora.com
+  email: $NPM_EMAIL
   api_key: $NPM_TOKEN
   on:
     tags: true
 
 script:
-  - npm run lint
-  - npm run coverage
-  - npm run codecov
+  - yarn lint
+  - yarn coverage
+  - yarn codecov
+
+cache: yarn
