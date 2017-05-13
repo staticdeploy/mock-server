@@ -1,59 +1,60 @@
 const {expect} = require("chai");
-const mockFs = require("mock-fs");
+const {createTree, destroyTree} = require("create-fs-tree");
 const sortBy = require("lodash.sortby");
+const {tmpdir} = require("os");
+const {join} = require("path");
 
 const getRoutes = require("getApp/getRoutes");
 
 describe("getRoutes", () => {
 
+    const basedir = join(tmpdir(), "mock-server");
+
     before(() => {
-        mockFs({
-            "mock-server": {
-                "users": {
-                    "{userId}": {
-                        "get.js": "",
-                        "put.js": "",
-                        "nonHandler": ""
-                    },
+        createTree(basedir, {
+            "users": {
+                "{userId}": {
                     "get.js": "",
-                    "post.js": "",
-                    "nonHandler.js": ""
+                    "put.js": "",
+                    "nonHandler": ""
                 },
                 "get.js": "",
-                "post": ""
-            }
+                "post.js": "",
+                "nonHandler.js": ""
+            },
+            "get.js": "",
+            "post": ""
         });
     });
     after(() => {
-        mockFs.restore();
+        destroyTree(basedir);
     });
 
     it("returns a list of route objects generated from files in the server root directory [GENERAL TEST]", () => {
-        const routes = sortBy(getRoutes("mock-server"), "path");
-        const requireBasePath = `${process.cwd()}/mock-server`;
+        const routes = sortBy(getRoutes(basedir), "path");
         const expectedRoutes = sortBy([
             {
-                handlerRequirePath: `${requireBasePath}/users/{userId}/get.js`,
+                handlerRequirePath: `${basedir}/users/{userId}/get.js`,
                 method: "get",
                 path: "/users/:userId"
             },
             {
-                handlerRequirePath: `${requireBasePath}/users/{userId}/put.js`,
+                handlerRequirePath: `${basedir}/users/{userId}/put.js`,
                 method: "put",
                 path: "/users/:userId"
             },
             {
-                handlerRequirePath: `${requireBasePath}/users/get.js`,
+                handlerRequirePath: `${basedir}/users/get.js`,
                 method: "get",
                 path: "/users"
             },
             {
-                handlerRequirePath: `${requireBasePath}/users/post.js`,
+                handlerRequirePath: `${basedir}/users/post.js`,
                 method: "post",
                 path: "/users"
             },
             {
-                handlerRequirePath: `${requireBasePath}/get.js`,
+                handlerRequirePath: `${basedir}/get.js`,
                 method: "get",
                 path: "/"
             }

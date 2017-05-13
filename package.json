@@ -7,7 +7,7 @@
     "sd-mock-server": "src/bin/sd-mock-server.js"
   },
   "scripts": {
-    "coverage": "env NODE_ENV=test nyc --reporter=lcov npm run test",
+    "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "codecov": "codecov",
     "test": "env NODE_PATH=src mocha --recursive test",
     "lint": "eslint src"
@@ -38,20 +38,20 @@
     "lodash.debounce": "^4.0.8",
     "lodash.includes": "^4.3.0",
     "methods": "^1.1.2",
-    "node-watch": "^0.5.2",
+    "node-watch": "^0.5.4",
     "watch": "^1.0.2",
-    "yargs": "^7.1.0"
+    "yargs": "^8.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "codecov": "^2.1.0",
+    "codecov": "^2.2.0",
+    "create-fs-tree": "^1.0.0",
     "eslint": "^3.19.0",
     "eslint-config-staticdeploy": "^3.0.0",
     "lodash.sortby": "^4.7.0",
-    "mocha": "^3.2.0",
-    "mock-fs": "^3.11.0",
-    "mock-require": "^2.0.2",
-    "nyc": "^10.2.0",
+    "mocha": "^3.3.0",
+    "nyc": "^10.3.2",
+    "strip-indent": "^2.0.0",
     "supertest": "^3.0.0"
   }
 }

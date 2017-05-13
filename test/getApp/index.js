@@ -1,60 +1,52 @@
 const {expect} = require("chai");
-const mockFs = require("mock-fs");
-const mockRequire = require("mock-require");
+const {createTree, destroyTree} = require("create-fs-tree");
+const {tmpdir} = require("os");
+const {join} = require("path");
+const stripIndent = require("strip-indent");
 const request = require("supertest");
 
 const getApp = require("getApp");
 
 describe("getApp", () => {
 
+    const basedir = join(tmpdir(), "mock-server");
+
     afterEach(() => {
-        mockFs.restore();
-        mockRequire.stopAll();
+        destroyTree(basedir);
     });
 
     describe("returns an express app", () => {
 
         beforeEach(() => {
-            mockFs({
-                "mock-server": {
-                    "users": {
-                        "{userId}": {
-                            "get.js": "",
-                            "put.js": "",
-                            "nonHandler": ""
-                        },
-                        "get.js": "",
-                        "post.js": "",
-                        "nonHandler.js": ""
+            const handlerFileContent = stripIndent(`
+                module.exports = (req, res) => {
+                    res.status(200).send({
+                        method: req.method,
+                        path: req.path,
+                        params: req.params,
+                        body: req.body
+                    });
+                };
+            `);
+            createTree(basedir, {
+                "users": {
+                    "{userId}": {
+                        "get.js": handlerFileContent,
+                        "put.js": handlerFileContent,
+                        "nonHandler": handlerFileContent
                     },
-                    "get.js": "",
-                    "post": ""
-                }
-            });
-            const requireBasePath = `${process.cwd()}/mock-server`;
-            const handlerRequirePaths = [
-                `${requireBasePath}/users/{userId}/get.js`,
-                `${requireBasePath}/users/{userId}/put.js`,
-                `${requireBasePath}/users/get.js`,
-                `${requireBasePath}/users/post.js`,
-                `${requireBasePath}/get.js`
-            ];
-            const handler = (req, res) => {
-                res.status(200).send({
-                    method: req.method,
-                    path: req.path,
-                    params: req.params,
-                    body: req.body
-                });
-            };
-            handlerRequirePaths.forEach(handlerRequirePath => {
-                mockRequire(handlerRequirePath, handler);
+                    "get.js": handlerFileContent,
+                    "post.js": handlerFileContent,
+                    "nonHandler.js": handlerFileContent
+                },
+                "get.js": handlerFileContent,
+                "post": handlerFileContent
             });
         });
 
         it("whose responses carry cors headers allowing the requesting origin", () => {
             const app = getApp({
-                root: "mock-server",
+                root: basedir,
                 delay: 0
             });
             return request(app)
@@ -68,7 +60,7 @@ describe("getApp", () => {
 
             it("test case GET /users/:userId", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -86,7 +78,7 @@ describe("getApp", () => {
 
             it("test case PUT /users/:userId", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -105,7 +97,7 @@ describe("getApp", () => {
 
             it("test case GET /users", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -121,7 +113,7 @@ describe("getApp", () => {
 
             it("test case POST /users", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -138,7 +130,7 @@ describe("getApp", () => {
 
             it("test case GET /", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -154,7 +146,7 @@ describe("getApp", () => {
 
             it("test case GET /non-existing-path , non existing path", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -164,7 +156,7 @@ describe("getApp", () => {
 
             it("test case POST / , non existing method", () => {
                 const app = getApp({
-                    root: "mock-server",
+                    root: basedir,
                     delay: 0
                 });
                 return request(app)
@@ -177,15 +169,12 @@ describe("getApp", () => {
     });
 
     it("throws an error if a handler file doens't export a function", () => {
-        mockFs({
-            "mock-server": {
-                "get.js": ""
-            }
+        createTree(basedir, {
+            "get.js": ""
         });
-        mockRequire(`${process.cwd()}/mock-server/get.js`, {});
         const troublemaker = () => {
             getApp({
-                root: "mock-server",
+                root: basedir,
                 delay: 0
             });
         };
