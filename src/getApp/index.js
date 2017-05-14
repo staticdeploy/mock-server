@@ -34,5 +34,8 @@ module.exports = function getApp (options) {
         .use(slow({delay}))
         .use(cors({origin: /.*/, credentials: true}))
         .use(bodyParser.json({limit: "1gb"}))
+        .use(bodyParser.urlencoded({limit: "1gb", extended: false}))
+        .use(bodyParser.text({limit: "1gb", type: "text/*"}))
+        .use(bodyParser.raw({limit: "1gb", type: "*/*"}))
         .use(getRouter(root));
 };

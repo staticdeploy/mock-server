@@ -14,7 +14,7 @@ Basic usage:
 - `watch`: boolean flag, makes the server reload on file changes
 - `require`: require a module before startup, can be used multiple times
 
-### How to write handler files
+### Writing handler files
 
 Handler files are files whose basename matches an http method:
 `mock-server/get.js`, `mock-server/users/post.js` etc.
@@ -55,3 +55,11 @@ module.exports = (req, res) => {
 > Note: the path syntax for parametric routes is `.../{param}/...` instead of
 > `.../:param/...` because the latter path is not valid for some filesystems (eg
 > NTFS)
+
+Request bodies are parsed according to their mime-type:
+
+- **application/json**: `req.body` is an object, the parsed json body
+- **text/\***: `req.body` is as string, the body
+- **application/x-www-form-urlencoded**: `req.body` is an object, the parsed
+  urlencoded body
+- **\*/\***: `req.body` is a buffer, the raw body

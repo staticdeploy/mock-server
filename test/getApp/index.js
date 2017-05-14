@@ -9,10 +9,11 @@ const getApp = require("getApp");
 
 describe("getApp", () => {
 
-    const basedir = join(tmpdir(), "mock-server");
+    const root = join(tmpdir(), "mock-server");
+    const delay = 0;
 
     afterEach(() => {
-        destroyTree(basedir);
+        destroyTree(root);
     });
 
     describe("returns an express app", () => {
@@ -28,7 +29,7 @@ describe("getApp", () => {
                     });
                 };
             `);
-            createTree(basedir, {
+            createTree(root, {
                 "users": {
                     "{userId}": {
                         "get.js": handlerFileContent,
@@ -45,25 +46,109 @@ describe("getApp", () => {
         });
 
         it("whose responses carry cors headers allowing the requesting origin", () => {
-            const app = getApp({
-                root: basedir,
-                delay: 0
-            });
-            return request(app)
+            return request(getApp({root, delay}))
                 .get("/users/myUserId")
                 .set("Origin", "http://localhost:8080")
                 .expect(200)
                 .expect("Access-Control-Allow-Origin", "http://localhost:8080");
         });
 
+        describe("parsing requests bodies of different content types", () => {
+
+            it("case: application/json bodies parsed as objects", () => {
+                return request(getApp({root, delay}))
+                    .put("/users/myUserId")
+                    .set("Content-Type", "application/json")
+                    .send(JSON.stringify({key: "value"}))
+                    .expect(200)
+                    .expect({
+                        method: "PUT",
+                        path: "/users/myUserId",
+                        params: {
+                            userId: "myUserId"
+                        },
+                        body: {key: "value"}
+                    });
+            });
+
+            describe("case: text/* bodies parsed as text", () => {
+                it("text/plain", () => {
+                    return request(getApp({root, delay}))
+                        .put("/users/myUserId")
+                        .set("Content-Type", "text/plain")
+                        .send("Hello world!")
+                        .expect(200)
+                        .expect({
+                            method: "PUT",
+                            path: "/users/myUserId",
+                            params: {
+                                userId: "myUserId"
+                            },
+                            body: "Hello world!"
+                        });
+                });
+                it("text/xml", () => {
+                    return request(getApp({root, delay}))
+                        .put("/users/myUserId")
+                        .set("Content-Type", "text/xml")
+                        .send("<tag></tag>")
+                        .expect(200)
+                        .expect({
+                            method: "PUT",
+                            path: "/users/myUserId",
+                            params: {
+                                userId: "myUserId"
+                            },
+                            body: "<tag></tag>"
+                        });
+                });
+            });
+
+            it("case: application/x-www-form-urlencoded parsed as objects", () => {
+                return request(getApp({root, delay}))
+                    .put("/users/myUserId")
+                    .set("Content-Type", "application/x-www-form-urlencoded")
+                    .send("greeting=hello&target=world")
+                    .expect(200)
+                    .expect({
+                        method: "PUT",
+                        path: "/users/myUserId",
+                        params: {
+                            userId: "myUserId"
+                        },
+                        body: {
+                            greeting: "hello",
+                            target: "world"
+                        }
+                    });
+            });
+
+            it("case: */* (any) bodies parsed as Buffers", () => {
+                return request(getApp({root, delay}))
+                    .put("/users/myUserId")
+                    .set("Content-Type", "application/xml")
+                    .send("<tag></tag>")
+                    .expect(200)
+                    .expect({
+                        method: "PUT",
+                        path: "/users/myUserId",
+                        params: {
+                            userId: "myUserId"
+                        },
+                        // Result of Buffer.from("<tag></tag>").toJSON()
+                        body: {
+                            type: "Buffer",
+                            data: [60, 116, 97, 103, 62, 60, 47, 116, 97, 103, 62]
+                        }
+                    });
+            });
+
+        });
+
         describe("configured according to the contents of the server root directory", () => {
 
-            it("test case GET /users/:userId", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: GET /users/:userId", () => {
+                return request(getApp({root, delay}))
                     .get("/users/myUserId")
                     .expect(200)
                     .expect({
@@ -76,12 +161,8 @@ describe("getApp", () => {
                     });
             });
 
-            it("test case PUT /users/:userId", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: PUT /users/:userId", () => {
+                return request(getApp({root, delay}))
                     .put("/users/myUserId")
                     .send({key: "value"})
                     .expect(200)
@@ -95,12 +176,8 @@ describe("getApp", () => {
                     });
             });
 
-            it("test case GET /users", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: GET /users", () => {
+                return request(getApp({root, delay}))
                     .get("/users")
                     .expect(200)
                     .expect({
@@ -111,12 +188,8 @@ describe("getApp", () => {
                     });
             });
 
-            it("test case POST /users", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: POST /users", () => {
+                return request(getApp({root, delay}))
                     .post("/users")
                     .send({key: "value"})
                     .expect(200)
@@ -128,12 +201,8 @@ describe("getApp", () => {
                     });
             });
 
-            it("test case GET /", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: GET /", () => {
+                return request(getApp({root, delay}))
                     .get("/")
                     .expect(200)
                     .expect({
@@ -144,22 +213,14 @@ describe("getApp", () => {
                     });
             });
 
-            it("test case GET /non-existing-path , non existing path", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: GET /non-existing-path , non existing path", () => {
+                return request(getApp({root, delay}))
                     .get("/non-existing-path")
                     .expect(404);
             });
 
-            it("test case POST / , non existing method", () => {
-                const app = getApp({
-                    root: basedir,
-                    delay: 0
-                });
-                return request(app)
+            it("case: POST / , non existing method", () => {
+                return request(getApp({root, delay}))
                     .post("/")
                     .expect(404);
             });
@@ -169,14 +230,11 @@ describe("getApp", () => {
     });
 
     it("throws an error if a handler file doens't export a function", () => {
-        createTree(basedir, {
+        createTree(root, {
             "get.js": ""
         });
         const troublemaker = () => {
-            getApp({
-                root: basedir,
-                delay: 0
-            });
+            getApp({root});
         };
         expect(troublemaker).to.throw("Handler file for route \"GET /\" must export a function");
     });

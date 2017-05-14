@@ -9,6 +9,7 @@ const getApp = require("./getApp");
 
 module.exports = function startServer (options) {
     const {root, watch, port} = options;
+    // Load (require) require-s passed in as options
     options.require.forEach(require);
     const server = createServer()
         .addListener("request", getApp(options))

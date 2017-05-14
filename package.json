@@ -51,7 +51,7 @@
     "eslint-config-staticdeploy": "^3.0.0",
     "gitbook-cli": "^2.3.0",
     "lodash.sortby": "^4.7.0",
-    "mocha": "^3.3.0",
+    "mocha": "^3.4.1",
     "nyc": "^10.3.2",
     "strip-indent": "^2.0.0",
     "supertest": "^3.0.0"

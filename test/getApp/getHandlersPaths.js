@@ -9,10 +9,10 @@ const getHandlersPaths = require("getApp/getHandlersPaths");
 
 describe("getHandlersPaths", () => {
 
-    const basedir = join(tmpdir(), "mock-server");
+    const root = join(tmpdir(), "mock-server");
 
     before(() => {
-        createTree(basedir, {
+        createTree(root, {
             "users": {
                 "{userId}": {
                     "get.js": "",
@@ -32,13 +32,13 @@ describe("getHandlersPaths", () => {
         });
     });
     after(() => {
-        destroyTree(basedir);
+        destroyTree(root);
     });
 
     describe("return value", () => {
 
         it("is an array of strings", () => {
-            const paths = getHandlersPaths(basedir);
+            const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
             paths.forEach(path => {
@@ -47,7 +47,7 @@ describe("getHandlersPaths", () => {
         });
 
         it("is an array of non absolute paths", () => {
-            const paths = getHandlersPaths(basedir);
+            const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
             paths.forEach(path => {
@@ -56,7 +56,7 @@ describe("getHandlersPaths", () => {
         });
 
         it("is an array of .something file paths", () => {
-            const paths = getHandlersPaths(basedir);
+            const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
             paths.forEach(path => {
@@ -65,7 +65,7 @@ describe("getHandlersPaths", () => {
         });
 
         it("is an array of paths whose basename is a lowercase http method", () => {
-            const paths = getHandlersPaths(basedir);
+            const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
             paths.forEach(path => {
@@ -75,7 +75,7 @@ describe("getHandlersPaths", () => {
         });
 
         it("doesn't contain paths for non-handler files", () => {
-            const paths = getHandlersPaths(basedir);
+            const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
             paths.forEach(path => {
@@ -87,7 +87,7 @@ describe("getHandlersPaths", () => {
     });
 
     it("gets a list of all handler files in the specified directory (and its subdirectories) [GENERAL TEST]", () => {
-        const paths = getHandlersPaths(basedir).sort();
+        const paths = getHandlersPaths(root).sort();
         const expectedPaths = [
             "users/{userId}/get.js",
             "users/{userId}/put.js",
