@@ -77,58 +77,11 @@ module.exports = (req, res) => {
 > `.../:param/...` because the latter path is not valid for some filesystems (eg
 > NTFS)
 
-### Writing handler files in ES201X / TypeScript / etc
+## Recipes
 
-It's possible to write handler files in a compile-to-js language by simply
-writing the files in that language and registering a require hook when starting
-`sd-mock-server`.
+* [Writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
+* [Mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
 
-ES201X example:
+## Examples
 
-```js
-// mock-server/get.js
-export default function handler (req, res) {
-    req.status(200).send("OK");
-}
-```
-
-and start the server with `sd-mock-server --require babel-register`. (Note:
-you'll also need to have a `.babelrc` file which specifies how you want your
-ES201X code to be transpiled).
-
-### Mocking a graphql service
-
-To mock a graphql service we can use `sd-mock-server` in combination with
-[apollographql/graphql-tools](https://github.com/apollographql/graphql-tools)
-(which actually does the hard work of creating a graphql mock resolver from a
-graphql schema).
-
-To do so, create a `mock-server/graphql` directory, and put your API's schema
-definition file inside of it:
-
-```graphql
-# mock-server/graphql/schema.graphql
-type Query {
-    greeting: String
-}
-schema {
-    query: Query
-}
-```
-
-Then write a handler for the `POST /graphql` route:
-
-```js
-// mock-server/graphql/post.js
-const {readFileSync} = require("fs");
-const {graphqlExpress} = require("graphql-server-express");
-const graphqlTools = require("graphql-tools");
-
-const schema = graphqlTools.makeExecutableSchema({
-    typeDefs: [
-        readFileSync(`${__dirname}/schema.graphql`, "utf8")
-    ]
-});
-graphqlTools.addMockFunctionsToSchema({schema});
-module.exports = graphqlExpress({schema});
-```
+* [React app](examples/react-app)

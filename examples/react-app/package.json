@@ -1,0 +1,18 @@
+{
+  "name": "react-app",
+  "version": "0.0.0",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "0.9.5",
+    "sd-mock-server": "^1.2.1"
+  },
+  "scripts": {
+    "start:mock-server": "sd-mock-server --watch --delay 1000 --require babel-register",
+    "start:dev-server": "react-scripts start",
+    "start": "npm-run-all -p start:*"
+  }
+}
