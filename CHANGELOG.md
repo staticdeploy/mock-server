@@ -1,3 +1,9 @@
+## 1.3.0 (May 14, 2017)
+
+Features:
+
+- support non-json bodies
+
 ## 1.2.0 (April 26, 2017)
 
 Features:
