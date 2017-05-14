@@ -15,19 +15,19 @@ use `sd-mock-server` to easily write a local server which replicates the
 behavior of those services. Then, when developing our app/service, we start the
 local mock server and point our app/service to it.
 
-## Install
+### Install
 
 ```sh
 npm i --save-dev sd-mock-server
 ```
 
-## Usage
+### Usage
 
 * create a directory `mock-server`
 * place some handler files in it (read below for how to write them)
 * run `sd-mock-server`
 
-### CLI options
+#### CLI options
 
 * `root`: mock server root directory, defaults to `mock-server`
 * `port`: mock server port, defaults to `3456`
@@ -35,7 +35,7 @@ npm i --save-dev sd-mock-server
 * `watch`: boolean flag, makes the server reload on file changes
 * `require`: require a module before startup, can be used multiple times
 
-### How to write handler files
+#### How to write handler files
 
 Handler files are files whose basename matches an http method:
 `mock-server/get.js`, `mock-server/users/post.js` etc.
@@ -77,11 +77,11 @@ module.exports = (req, res) => {
 > `.../:param/...` because the latter path is not valid for some filesystems (eg
 > NTFS)
 
-## Recipes
+### Recipes
 
 * [Writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
 * [Mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
 
-## Examples
+### Examples
 
-* [React app](examples/react-app)
+* [React app](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/react-app)

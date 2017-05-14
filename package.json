@@ -7,6 +7,7 @@
     "sd-mock-server": "src/bin/sd-mock-server.js"
   },
   "scripts": {
+    "dev:gitbook": "gitbook install && gitbook serve",
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "codecov": "codecov",
     "test": "env NODE_PATH=src mocha --recursive test",
@@ -48,6 +49,7 @@
     "create-fs-tree": "^1.0.0",
     "eslint": "^3.19.0",
     "eslint-config-staticdeploy": "^3.0.0",
+    "gitbook-cli": "^2.3.0",
     "lodash.sortby": "^4.7.0",
     "mocha": "^3.3.0",
     "nyc": "^10.3.2",

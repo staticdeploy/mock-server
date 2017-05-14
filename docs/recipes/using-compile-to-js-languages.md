@@ -31,7 +31,7 @@ writing the files in that language and registering a require hook when starting
 ### TypeScript example
 
 * write your handler files:
-  ```ts
+  ```typescript
   // mock-server/get.ts
   import {RequestHandle} from "express";
 

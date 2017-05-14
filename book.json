@@ -1,0 +1,13 @@
+{
+  "title": "sd-mock-server guide",
+  "plugins": ["edit-link", "prism", "-highlight", "github"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/staticdeploy/sd-mock-server/tree/master",
+      "label": "Edit this page"
+    },
+    "github": {
+      "url": "https://github.com/staticdeploy/sd-mock-server/"
+    }
+  }
+}
