@@ -56,6 +56,7 @@ mock-server
 ### Documentation
 
 - [user guide](docs/user-guide.md)
+- [why you should use `sd-mock-server`](docs/why-use-sd-mock-server.md)
 - recipes:
   - [writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
   - [mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
