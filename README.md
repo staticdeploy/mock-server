@@ -62,4 +62,4 @@ mock-server
   - [mocking for selenium tests](docs/recipes/mocking-for-selenium-tests.md)
 - examples:
   - [react app](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/react-app)
-  - [selenium tests](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/selenium-tests).
+  - [selenium tests](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/selenium-tests)
