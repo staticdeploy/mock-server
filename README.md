@@ -6,14 +6,16 @@
 
 # sd-mock-server
 
-Easy to use, no frills mock server.
+Easy to use, no frills http mock server.
 
-This tool is useful when developing (and testing) frontend apps or backend
-services which talk to a multitude of external REST services. Instead of having
-to start locally (or in a remote dev environment) each external service, you can
-use `sd-mock-server` to easily write a local server which replicates the
-behavior of those services. Then, when developing our app/service, you start the
-local mock server and point your app/service to it.
+Suppose you're developing a frontend app that talks to one or more API services.
+When running it locally - in your development environment - you need to somehow
+provide those services to the app: you can either rely on a remote deployment,
+start the services locally, or mock them.
+
+`sd-mock-server` is a command line tool that helps you take the third approach,
+allowing you to easily create and run a mock http server to run during
+development ([and not only!](docs/recipes/mocking-for-selenium-tests.md)).
 
 ### Install
 
@@ -57,5 +59,7 @@ mock-server
 - recipes:
   - [writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
   - [mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
+  - [mocking for selenium tests](docs/recipes/mocking-for-selenium-tests.md)
 - examples:
   - [react app](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/react-app)
+  - [selenium tests](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/selenium-tests).

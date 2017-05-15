@@ -1,0 +1,26 @@
+{
+  "name": "selenium-tests",
+  "version": "0.0.0",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "node-static": "^0.7.9",
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "0.9.5",
+    "sd-mock-server": "^1.2.1",
+    "wdio-mocha-framework": "^0.5.10",
+    "wdio-selenium-standalone-service": "^0.0.8",
+    "wdio-spec-reporter": "^0.1.0",
+    "webdriverio": "^4.8.0"
+  },
+  "scripts": {
+    "start:mock-server": "sd-mock-server --watch --delay 1000 --require babel-register",
+    "start:dev-server": "react-scripts start",
+    "start": "npm-run-all -p start:*",
+    "build": "react-scripts build",
+    "serve": "static build",
+    "selenium-tests": "wdio wdio.conf.js"
+  }
+}

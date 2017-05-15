@@ -1,0 +1,5 @@
+# Build directory
+build/
+
+# Selenium error shots
+errorShots/
