@@ -34,8 +34,8 @@ function getRouter(root) {
 }
 
 module.exports = function getApp(options) {
-    const { root, delay } = options;
-    return express()
+    const { delay, root, serveConfig } = options;
+    const server = express()
         .use(slow({ delay }))
         .use(cors({ origin: /.*/, credentials: true }))
         .use(bodyParser.json({ limit: "1gb" }))
@@ -43,4 +43,11 @@ module.exports = function getApp(options) {
         .use(bodyParser.text({ limit: "1gb", type: "text/*" }))
         .use(bodyParser.raw({ limit: "1gb", type: "*/*" }))
         .use(getRouter(root));
+    if (serveConfig) {
+        server.get(
+            "/app-config.js",
+            require("@staticdeploy/app-server").getConfigScriptHandler()
+        );
+    }
+    return server;
 };

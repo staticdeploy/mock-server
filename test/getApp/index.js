@@ -8,8 +8,9 @@ const request = require("supertest");
 const getApp = require("getApp");
 
 describe("getApp", () => {
-    const root = join(tmpdir(), "mock-server");
     const delay = 0;
+    const root = join(tmpdir(), "mock-server");
+    const serveConfig = false;
 
     afterEach(() => {
         destroyTree(root);
@@ -44,7 +45,7 @@ describe("getApp", () => {
         });
 
         it("whose responses carry cors headers allowing the requesting origin", () => {
-            return request(getApp({ root, delay }))
+            return request(getApp({ delay, root, serveConfig }))
                 .get("/users/myUserId")
                 .set("Origin", "http://localhost:8080")
                 .expect(200)
@@ -53,7 +54,7 @@ describe("getApp", () => {
 
         describe("parsing requests bodies of different content types", () => {
             it("case: application/json bodies parsed as objects", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .put("/users/myUserId")
                     .set("Content-Type", "application/json")
                     .send(JSON.stringify({ key: "value" }))
@@ -70,7 +71,7 @@ describe("getApp", () => {
 
             describe("case: text/* bodies parsed as text", () => {
                 it("text/plain", () => {
-                    return request(getApp({ root, delay }))
+                    return request(getApp({ delay, root, serveConfig }))
                         .put("/users/myUserId")
                         .set("Content-Type", "text/plain")
                         .send("Hello world!")
@@ -85,7 +86,7 @@ describe("getApp", () => {
                         });
                 });
                 it("text/xml", () => {
-                    return request(getApp({ root, delay }))
+                    return request(getApp({ delay, root, serveConfig }))
                         .put("/users/myUserId")
                         .set("Content-Type", "text/xml")
                         .send("<tag></tag>")
@@ -102,7 +103,7 @@ describe("getApp", () => {
             });
 
             it("case: application/x-www-form-urlencoded parsed as objects", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .put("/users/myUserId")
                     .set("Content-Type", "application/x-www-form-urlencoded")
                     .send("greeting=hello&target=world")
@@ -121,7 +122,7 @@ describe("getApp", () => {
             });
 
             it("case: */* (any) bodies parsed as Buffers", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .put("/users/myUserId")
                     .set("Content-Type", "application/xml")
                     .send("<tag></tag>")
@@ -155,7 +156,7 @@ describe("getApp", () => {
 
         describe("configured according to the contents of the server root directory", () => {
             it("case: GET /users/:userId", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .get("/users/myUserId")
                     .expect(200)
                     .expect({
@@ -169,7 +170,7 @@ describe("getApp", () => {
             });
 
             it("case: PUT /users/:userId", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .put("/users/myUserId")
                     .send({ key: "value" })
                     .expect(200)
@@ -184,7 +185,7 @@ describe("getApp", () => {
             });
 
             it("case: GET /users", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .get("/users")
                     .expect(200)
                     .expect({
@@ -196,7 +197,7 @@ describe("getApp", () => {
             });
 
             it("case: POST /users", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .post("/users")
                     .send({ key: "value" })
                     .expect(200)
@@ -209,7 +210,7 @@ describe("getApp", () => {
             });
 
             it("case: GET /", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .get("/")
                     .expect(200)
                     .expect({
@@ -221,16 +222,30 @@ describe("getApp", () => {
             });
 
             it("case: GET /non-existing-path , non existing path", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .get("/non-existing-path")
                     .expect(404);
             });
 
             it("case: POST / , non existing method", () => {
-                return request(getApp({ root, delay }))
+                return request(getApp({ delay, root, serveConfig }))
                     .post("/")
                     .expect(404);
             });
+        });
+
+        it("serving /app-config.js when the serveConfig option is true", () => {
+            return request(getApp({ root, delay, serveConfig: true }))
+                .get("/app-config.js")
+                .expect(200)
+                .expect("Content-Type", /application\/javascript/)
+                .expect(/window\.APP_CONFIG/);
+        });
+
+        it("not serving /app-config.js when the serveConfig option is false", () => {
+            return request(getApp({ root, delay, serveConfig }))
+                .get("/app-config.js")
+                .expect(404);
         });
     });
 

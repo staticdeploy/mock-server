@@ -69,5 +69,8 @@
     "prettier": "^1.7.0",
     "strip-indent": "^2.0.0",
     "supertest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@staticdeploy/app-server": "^1.0.2"
   }
 }
