@@ -23,6 +23,10 @@
     "server",
     "api"
   ],
+  "files": [
+    "src",
+    "docs"
+  ],
   "author": "Paolo Scanferla <paolo.scanferla@gmail.com>",
   "repository": {
     "type": "git",
