@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const yargs = require("yargs");
-const {resolve} = require("path");
+const { resolve } = require("path");
 
 const startServer = require("../");
 const pkg = require("../../package");
@@ -37,7 +37,6 @@ const argv = yargs
         default: [],
         describe: "Require the given modules",
         type: "array"
-    })
-    .argv;
+    }).argv;
 
 startServer(argv);

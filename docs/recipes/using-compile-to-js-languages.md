@@ -20,7 +20,7 @@ writing the files in that language and registering a require hook when starting
 * write your handler files:
   ```js
   // mock-server/get.js
-  export default function handler (req, res) {
+  export default function handler(req, res) {
       req.status(200).send("OK");
   }
   ```
@@ -33,7 +33,7 @@ writing the files in that language and registering a require hook when starting
 * write your handler files:
   ```typescript
   // mock-server/get.ts
-  import {RequestHandle} from "express";
+  import { RequestHandler } from "express";
 
   const handler: RequestHandler = (req, res) => {
       req.status(200).send("OK");

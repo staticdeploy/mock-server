@@ -2,16 +2,21 @@
   "name": "sd-mock-server",
   "version": "1.3.0",
   "description": "Easy to use, no frills mock server",
-  "main": "src/bin/sd-mock-server.js",
+  "main": "src/index.js",
   "bin": {
-    "sd-mock-server": "src/bin/sd-mock-server.js"
+    "sd-mock-server": "src/bin/index.js"
   },
   "scripts": {
     "dev:gitbook": "gitbook install && gitbook serve",
-    "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
-    "codecov": "codecov",
     "test": "env NODE_PATH=src mocha --recursive test",
-    "lint": "eslint src"
+    "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
+    "publish-coverage": "codecov",
+    "precommit": "yarn lint",
+    "prettier": "prettier '@(app|test)/**/*.js'",
+    "prettify": "yarn prettier --write",
+    "lint:prettier": "yarn prettier --list-different",
+    "lint:eslint": "eslint app test",
+    "lint": "yarn lint:prettier && yarn lint:eslint"
   },
   "keywords": [
     "mock",
@@ -28,31 +33,33 @@
   },
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "chalk": "^1.1.3",
+    "body-parser": "^1.18.1",
+    "chalk": "^2.1.0",
     "connect-slow": "^0.4.0",
-    "cors": "^2.8.3",
+    "cors": "^2.8.4",
     "decache": "^4.1.0",
-    "express": "^4.15.2",
+    "express": "^4.15.4",
     "fancy-log": "^1.3.0",
     "fs-readdir-recursive": "^1.0.0",
     "lodash.debounce": "^4.0.8",
     "lodash.includes": "^4.3.0",
     "methods": "^1.1.2",
-    "node-watch": "^0.5.4",
+    "node-watch": "^0.5.5",
     "watch": "^1.0.2",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "codecov": "^2.2.0",
+    "chai": "^4.1.2",
+    "codecov": "^2.3.0",
     "create-fs-tree": "^1.0.0",
-    "eslint": "^3.19.0",
-    "eslint-config-staticdeploy": "^3.0.0",
-    "gitbook-cli": "^2.3.0",
+    "eslint": "^4.7.0",
+    "eslint-config-prettier": "^2.5.0",
+    "gitbook-cli": "^2.3.2",
+    "husky": "^0.14.3",
     "lodash.sortby": "^4.7.0",
-    "mocha": "^3.4.1",
-    "nyc": "^10.3.2",
+    "mocha": "^3.5.3",
+    "nyc": "^11.2.1",
+    "prettier": "^1.7.0",
     "strip-indent": "^2.0.0",
     "supertest": "^3.0.0"
   }

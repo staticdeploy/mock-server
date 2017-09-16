@@ -1,34 +1,33 @@
-const {expect} = require("chai");
-const {createTree, destroyTree} = require("create-fs-tree");
+const { expect } = require("chai");
+const { createTree, destroyTree } = require("create-fs-tree");
 const includes = require("lodash.includes");
 const methods = require("methods");
-const {tmpdir} = require("os");
-const {basename, extname, join, isAbsolute} = require("path");
+const { tmpdir } = require("os");
+const { basename, extname, join, isAbsolute } = require("path");
 
 const getHandlersPaths = require("getApp/getHandlersPaths");
 
 describe("getHandlersPaths", () => {
-
     const root = join(tmpdir(), "mock-server");
 
     before(() => {
         createTree(root, {
-            "users": {
+            users: {
                 "{userId}": {
                     "get.js": "",
                     "put.js": "",
-                    "nonHandler": ""
+                    nonHandler: ""
                 },
                 "get.js": "",
                 "post.js": "",
                 "nonHandler.js": ""
             },
-            "typescripts": {
+            typescripts: {
                 "get.ts": "",
                 "post.ts": ""
             },
             "get.js": "",
-            "post": ""
+            post: ""
         });
     });
     after(() => {
@@ -36,7 +35,6 @@ describe("getHandlersPaths", () => {
     });
 
     describe("return value", () => {
-
         it("is an array of strings", () => {
             const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
@@ -69,7 +67,10 @@ describe("getHandlersPaths", () => {
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
             paths.forEach(path => {
-                const isBasenameHttpMethod = includes(methods, basename(path, extname(path)));
+                const isBasenameHttpMethod = includes(
+                    methods,
+                    basename(path, extname(path))
+                );
                 expect(isBasenameHttpMethod).to.equal(true);
             });
         });
@@ -83,7 +84,6 @@ describe("getHandlersPaths", () => {
                 expect(path).not.to.match(/nonHandler$/);
             });
         });
-
     });
 
     it("gets a list of all handler files in the specified directory (and its subdirectories) [GENERAL TEST]", () => {
@@ -99,5 +99,4 @@ describe("getHandlersPaths", () => {
         ].sort();
         expect(paths).to.deep.equal(expectedPaths);
     });
-
 });

@@ -1,9 +1,8 @@
-const {expect} = require("chai");
+const { expect } = require("chai");
 
 const toExpressPath = require("getApp/toExpressPath");
 
 describe("toExpressPath", () => {
-
     it("removes the file name and last / character", () => {
         const expressPath = toExpressPath("users/get.js");
         expect(expressPath).not.to.match(/\/get\.js$/);
@@ -20,15 +19,10 @@ describe("toExpressPath", () => {
     });
 
     it("converts handlerPaths into expressPaths [GENERAL TEST]", () => {
-        const expressPaths = [
-            "users/get.js",
-            "users/{userId}/get.js"
-        ].map(toExpressPath).sort();
-        const expectedExpressPaths = [
-            "/users",
-            "/users/:userId"
-        ].sort();
+        const expressPaths = ["users/get.js", "users/{userId}/get.js"]
+            .map(toExpressPath)
+            .sort();
+        const expectedExpressPaths = ["/users", "/users/:userId"].sort();
         expect(expressPaths).to.deep.equal(expectedExpressPaths);
     });
-
 });

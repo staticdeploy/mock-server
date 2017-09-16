@@ -4,21 +4,21 @@ import ReactDOM from "react-dom";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3456";
 
 class App extends React.Component {
-    constructor () {
+    constructor() {
         super();
-        this.state = {target: null};
+        this.state = { target: null };
     }
-    async componentWillMount () {
+    async componentWillMount() {
         const response = await fetch(`${API_URL}/target`);
         const target = await response.text();
-        this.setState({target});
+        this.setState({ target });
     }
-    render () {
-        const {target} = this.state;
-        return (
-            target
-            ? <div className="greeting">{`Hello ${target}!`}</div>
-            : <div className="loading">{"Loading"}</div>
+    render() {
+        const { target } = this.state;
+        return target ? (
+            <div className="greeting">{`Hello ${target}!`}</div>
+        ) : (
+            <div className="loading">{"Loading"}</div>
         );
     }
 }

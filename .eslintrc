@@ -1,6 +1,12 @@
 {
-    "extends": "eslint-config-staticdeploy",
-    "rules": {
-        "new-cap": [0]
+    "extends": [
+        "eslint:recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "env": {
+        "node": true
     }
 }

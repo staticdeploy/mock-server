@@ -13,6 +13,7 @@ definition file inside of it:
 type Query {
     greeting: String
 }
+
 schema {
     query: Query
 }
@@ -22,15 +23,13 @@ Then write a handler for the `POST /graphql` route:
 
 ```js
 // mock-server/graphql/post.js
-const {readFileSync} = require("fs");
-const {graphqlExpress} = require("graphql-server-express");
+const { readFileSync } = require("fs");
+const { graphqlExpress } = require("graphql-server-express");
 const graphqlTools = require("graphql-tools");
 
 const schema = graphqlTools.makeExecutableSchema({
-    typeDefs: [
-        readFileSync(`${__dirname}/schema.graphql`, "utf8")
-    ]
+    typeDefs: [readFileSync(`${__dirname}/schema.graphql`, "utf8")]
 });
-graphqlTools.addMockFunctionsToSchema({schema});
-module.exports = graphqlExpress({schema});
+graphqlTools.addMockFunctionsToSchema({ schema });
+module.exports = graphqlExpress({ schema });
 ```
