@@ -1,3 +1,7 @@
+## 1.4.0 (September 16, 2017)
+
+Rename package from `sd-mock-server` to `@staticdeploy/mock-server`.
+
 ## 1.3.0 (May 14, 2017)
 
 Features:
