@@ -1,4 +1,4 @@
-const {execSync, spawn} = require("child_process");
+const { execSync, spawn } = require("child_process");
 
 let staticServer;
 let mockServer;
@@ -6,7 +6,7 @@ let mockServer;
 exports.config = {
     specs: ["./e2e/**/*.js"],
     sync: false,
-    capabilities: [{browserName: "chrome"}],
+    capabilities: [{ browserName: "chrome" }],
     logLevel: "silent",
     coloredLogs: true,
     screenshotPath: "./errorShots/",
@@ -14,7 +14,7 @@ exports.config = {
     services: ["selenium-standalone"],
     framework: "mocha",
     reporters: ["spec"],
-    onPrepare: async () => {
+    onPrepare: () => {
         console.log("Building app...");
         execSync("npm run build");
         console.log("Starting mock and static servers...");
