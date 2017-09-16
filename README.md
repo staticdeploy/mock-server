@@ -1,10 +1,10 @@
-[![npm version](https://img.shields.io/npm/v/sd-mock-server.svg)](https://www.npmjs.com/package/sd-mock-server)
-[![build status](https://travis-ci.org/staticdeploy/sd-mock-server.svg?branch=master)](https://travis-ci.org/staticdeploy/sd-mock-server)
-[![coverage status](https://codecov.io/github/staticdeploy/sd-mock-server/coverage.svg?branch=master)](https://codecov.io/github/staticdeploy/sd-mock-server?branch=master)
-[![dependency status](https://david-dm.org/staticdeploy/sd-mock-server.svg)](https://david-dm.org/staticdeploy/sd-mock-server)
-[![devDependency status](https://david-dm.org/staticdeploy/sd-mock-server/dev-status.svg)](https://david-dm.org/staticdeploy/sd-mock-server#info=devDependencies)
+[![npm version](https://img.shields.io/npm/v/@staticdeploy/mock-server.svg)](https://www.npmjs.com/package/@staticdeploy/mock-server)
+[![build status](https://travis-ci.org/staticdeploy/mock-server.svg?branch=master)](https://travis-ci.org/staticdeploy/mock-server)
+[![coverage status](https://codecov.io/github/staticdeploy/mock-server/coverage.svg?branch=master)](https://codecov.io/github/staticdeploy/mock-server?branch=master)
+[![dependency status](https://david-dm.org/staticdeploy/mock-server.svg)](https://david-dm.org/staticdeploy/mock-server)
+[![devDependency status](https://david-dm.org/staticdeploy/mock-server/dev-status.svg)](https://david-dm.org/staticdeploy/mock-server#info=devDependencies)
 
-# sd-mock-server
+# mock-server
 
 Easy to use, no frills http mock server.
 
@@ -13,14 +13,14 @@ When running it locally - in your development environment - you need to somehow
 provide those services to the app: you can either rely on a remote deployment,
 start the services locally, or mock them.
 
-`sd-mock-server` is a command line tool that helps you take the third approach,
+`mock-server` is a command line tool that helps you take the third approach,
 allowing you to easily create and run a mock http server to run during
 development ([and not only!](docs/recipes/mocking-for-selenium-tests.md)).
 
 ### Install
 
 ```sh
-npm i --save-dev sd-mock-server
+npm i --save-dev @staticdeploy/mock-server
 ```
 
 ### Quickstart
@@ -32,7 +32,7 @@ npm i --save-dev sd-mock-server
   ```
 - start the mock server
   ```sh
-  $ node_modules/.bin/sd-mock-server
+  $ node_modules/.bin/mock-server
   ```
 - call the mocked route
   ```sh
@@ -56,11 +56,12 @@ mock-server
 ### Documentation
 
 - [user guide](docs/user-guide.md)
-- [why you should use `sd-mock-server`](docs/why-use-sd-mock-server.md)
+- [why you should use `mock-server`](docs/why-use-mock-server.md)
 - recipes:
   - [writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
   - [mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
   - [mocking for selenium tests](docs/recipes/mocking-for-selenium-tests.md)
+<!-- Use full urls since these links also need to work in gitbook -->
 - examples:
-  - [react app](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/react-app)
-  - [selenium tests](https://github.com/staticdeploy/sd-mock-server/tree/master/examples/selenium-tests)
+  - [react app](https://github.com/staticdeploy/mock-server/tree/master/examples/react-app)
+  - [selenium tests](https://github.com/staticdeploy/mock-server/tree/master/examples/selenium-tests)

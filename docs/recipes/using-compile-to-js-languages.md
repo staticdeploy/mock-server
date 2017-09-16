@@ -2,7 +2,7 @@
 
 It's possible to write handler files in a compile-to-js language by simply
 writing the files in that language and registering a require hook when starting
-`sd-mock-server`.
+`mock-server`.
 
 ### Babel example
 
@@ -14,7 +14,7 @@ writing the files in that language and registering a require hook when starting
   }
   ```
   > Note: if you already have a `.babelrc` in your project's root, you can make
-  > `sd-mock-server` use that by simply not writing a `.babelrc` in the
+  > `mock-server` use that by simply not writing a `.babelrc` in the
   > mock-server root.
 
 * write your handler files:
@@ -26,7 +26,7 @@ writing the files in that language and registering a require hook when starting
   ```
 
 * install `babel-register` and start the server with
-  `sd-mock-server --require babel-register`
+  `mock-server --require babel-register`
 
 ### TypeScript example
 
@@ -42,4 +42,4 @@ writing the files in that language and registering a require hook when starting
   ```
 
 * install `ts-node` and start the server with
-  `sd-mock-server --require ts-node/register`
+  `mock-server --require ts-node/register`

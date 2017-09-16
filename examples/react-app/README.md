@@ -1,19 +1,19 @@
 # react-app example
 
-Example of using `sd-mock-server` with a trivial react app created with
+Example of using `mock-server` with a trivial react app created with
 `create-react-app`.
 
 ## Run the example
 
 ```sh
-git clone https://github.com/staticdeploy/sd-mock-server.git
-cd sd-mock-server/examples/react-app
+git clone https://github.com/staticdeploy/mock-server.git
+cd mock-server/examples/react-app
 npm install
 npm start
 ```
 
 `npm start` will start, in parallel, `create-react-app`'s development server and
-`sd-mock-server`.
+`mock-server`.
 
 ## What happens in the example
 
@@ -29,7 +29,7 @@ variable, so that the app sends requests to the mock server. In
 staging/production instead you would set it to point to your staging/production
 server.
 
-In the example, the following options are used when starting `sd-mock-server`:
+In the example, the following options are used when starting `mock-server`:
 
 - `--watch`: starts the server in watch mode; try to change the response in
   `mock-server/target/get.js` and reload the browser

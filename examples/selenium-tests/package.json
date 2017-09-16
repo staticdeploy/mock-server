@@ -16,7 +16,7 @@
     "webdriverio": "^4.8.0"
   },
   "scripts": {
-    "start:mock-server": "sd-mock-server --watch --delay 1000 --require babel-register",
+    "start:mock-server": "mock-server --watch --delay 1000 --require babel-register",
     "start:dev-server": "react-scripts start",
     "start": "npm-run-all -p start:*",
     "build": "react-scripts build",

@@ -14,11 +14,7 @@ module.exports = function startServer(options) {
     const server = createServer()
         .addListener("request", getApp(options))
         .listen(port, () => {
-            log(
-                `${cyan(
-                    "sd-mock-server"
-                )} listening on http://localhost:${port}`
-            );
+            log(`${cyan("mock-server")} listening on http://localhost:${port}`);
         });
     if (watch) {
         // Reconfigure the server on file change. Reconfiguring the server
@@ -32,7 +28,7 @@ module.exports = function startServer(options) {
                 log(
                     `Change detected in directory ${green(
                         basename(root)
-                    )}, reconfiguring ${cyan("sd-mock-server")}`
+                    )}, reconfiguring ${cyan("mock-server")}`
                 );
                 server
                     .removeAllListeners("request")

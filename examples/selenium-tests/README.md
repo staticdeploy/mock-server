@@ -1,12 +1,12 @@
 # selenium-tests example
 
-Example of using `sd-mock-server` when running selenium tests.
+Example of using `mock-server` when running selenium tests.
 
 ## Run the example
 
 ```sh
-git clone https://github.com/staticdeploy/sd-mock-server.git
-cd sd-mock-server/examples/selenium-tests
+git clone https://github.com/staticdeploy/mock-server.git
+cd mock-server/examples/selenium-tests
 npm install
 npm run selenium-tests
 ```

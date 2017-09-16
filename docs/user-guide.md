@@ -4,7 +4,7 @@ Basic usage:
 
 - create a directory `mock-server`
 - place some handler files in it (read below for how to write them)
-- run `sd-mock-server`
+- run `mock-server`
 
 ### CLI options
 

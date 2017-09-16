@@ -1,6 +1,6 @@
 ## Mocking a graphql service
 
-To mock a graphql service you can use `sd-mock-server` in combination with
+To mock a graphql service you can use `mock-server` in combination with
 [apollographql/graphql-tools](https://github.com/apollographql/graphql-tools)
 (which actually does the hard work of creating a graphql mock resolver from a
 graphql schema).

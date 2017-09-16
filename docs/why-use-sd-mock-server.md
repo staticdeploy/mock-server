@@ -1,4 +1,4 @@
-## Why you should use `sd-mock-server`
+## Why you should use `mock-server`
 
 ### Benefits
 
@@ -14,25 +14,25 @@
 
 ##### [json-server](https://github.com/typicode/json-server)
 
-`sd-mock-server` is much more flexible (non-json / non REST APIs, simulate error
+`mock-server` is much more flexible (non-json / non REST APIs, simulate error
 conditions, etc), but much more manual (you need to write your own route
 handlers).
 
 ##### [node-mock-server](https://github.com/smollweide/node-mock-server)
 
-Again, `sd-mock-server` is more flexible, but more manual. Also,
-`sd-mock-server` has a simpler approach which might be easier to use.
+Again, `mock-server` is more flexible, but more manual. Also, `mock-server` has
+a simpler approach which might be easier to use.
 
 ##### [service-mocker](https://github.com/service-mocker/service-mocker)
 
 `service-mocker` has an entirely different approach, implementing the mock
 server in a service worker. While this might be useful in some scenarios, it
-certainly complicates things a bit. Also, `sd-mock-server` is a bit more
+certainly complicates things a bit. Also, `mock-server` is a bit more
 _high-level_, enforcing/providing a convention to write route handlers.
 
 ##### [Mock Server](http://www.mock-server.com/) and [WireMock](http://wiremock.org/)
 
-`sd-mock-server` is much more primitive than Mock Server and WireMock, but also
-much simpler to use. Moreover, since `sd-mock-server` is a nodejs app, it's
+`mock-server` is much more primitive than Mock Server and WireMock, but also
+much simpler to use. Moreover, since `mock-server` is a nodejs app, it's
 probably easier to integrate in your existing frontend development
 workflow/environment.
