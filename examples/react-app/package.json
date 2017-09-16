@@ -6,7 +6,7 @@
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
-    "@staticdeploy/mock-server": "^1.4.0",
+    "@staticdeploy/mock-server": "^1.5.0",
     "npm-run-all": "^4.1.1",
     "react-scripts": "1.0.13"
   },
