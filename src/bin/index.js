@@ -4,13 +4,8 @@ const yargs = require("yargs");
 const { resolve } = require("path");
 
 const startServer = require("../");
-const pkg = require("../../package");
 
 const argv = yargs
-    .version(pkg.version)
-    .help("h")
-    .alias("h", "help")
-    .wrap(100)
     .usage("Usage: $0 <options>")
     .option("root", {
         coerce: resolve,
@@ -42,6 +37,8 @@ const argv = yargs
         default: [],
         describe: "Require the given modules",
         type: "array"
-    }).argv;
+    })
+    .wrap(Math.min(120, yargs.terminalWidth()))
+    .strict().argv;
 
 startServer(argv);
