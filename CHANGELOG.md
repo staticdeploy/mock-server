@@ -1,3 +1,9 @@
+## 1.6.0 (September 29, 2017)
+
+Features:
+
+- add option (`--useHttps`) to serve via https
+
 ## 1.5.0 (September 16, 2017)
 
 Features:
