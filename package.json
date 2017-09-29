@@ -25,7 +25,8 @@
   ],
   "files": [
     "src",
-    "docs"
+    "docs",
+    "ssl"
   ],
   "author": "Paolo Scanferla <paolo.scanferla@gmail.com>",
   "repository": {
