@@ -18,6 +18,10 @@ Basic usage:
   variables. Requires installing `@staticdeploy/app-server`, being a peer
   dependency of `@staticdeploy/mock-server`
 - `require`: require a module before startup, can be used multiple times
+- `useHttps`: boolean flag, makes `mock-server` serve requests via https. When
+  enabled `mock-server` generates a self signed certificate that your borswer
+  needs to trust before being able to make API calls to the server. To trust the
+  certificate, visit https://localhost:3456 and dismiss the security warning
 
 ### Writing handler files
 

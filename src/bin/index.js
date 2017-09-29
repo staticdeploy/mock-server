@@ -18,6 +18,11 @@ const argv = yargs
         describe: "Mock server port",
         type: "string"
     })
+    .option("useHttps", {
+        default: false,
+        describe: "Use https protocol instead of http",
+        type: "boolean"
+    })
     .option("delay", {
         default: 0,
         describe: "Milliseconds to delay responses by",
