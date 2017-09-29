@@ -1,3 +1,9 @@
+## 1.6.1 (September 29, 2017)
+
+Fixes:
+
+- publish `ssl` folder to npm
+
 ## 1.6.0 (September 29, 2017)
 
 Features:
