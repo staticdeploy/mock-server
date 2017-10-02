@@ -1,7 +1,7 @@
 const recursiveReaddirSync = require("fs-readdir-recursive");
 const includes = require("lodash.includes");
 const methods = require("methods");
-const {basename, extname} = require("path");
+const { basename, extname } = require("path");
 
 /*
 *   A handler file is a .js (or .something) file whose name matches an http
@@ -27,10 +27,10 @@ const {basename, extname} = require("path");
 *         "users/post.js"
 *       ]
 */
-module.exports = function getHandlersPaths (directory) {
-    return recursiveReaddirSync(directory)
-        .filter(name => (
+module.exports = function getHandlersPaths(directory) {
+    return recursiveReaddirSync(directory).filter(
+        name =>
             extname(name) !== "" &&
             includes(methods, basename(name, extname(name)))
-        ));
+    );
 };

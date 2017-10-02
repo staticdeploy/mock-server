@@ -12,7 +12,7 @@
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "publish-coverage": "codecov",
     "precommit": "yarn lint",
-    "prettier": "prettier '@(app|test)/**/*.js'",
+    "prettier": "prettier '@(src|test)/**/*.js'",
     "prettify": "yarn prettier --write",
     "lint:prettier": "yarn prettier --list-different",
     "lint:eslint": "eslint app test",
