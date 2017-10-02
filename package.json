@@ -15,7 +15,7 @@
     "prettier": "prettier '@(src|test)/**/*.js'",
     "prettify": "yarn prettier --write",
     "lint:prettier": "yarn prettier --list-different",
-    "lint:eslint": "eslint app test",
+    "lint:eslint": "eslint src test",
     "lint": "yarn lint:prettier && yarn lint:eslint"
   },
   "keywords": [
