@@ -28,7 +28,8 @@ const { basename, extname } = require("path");
 *       ]
 */
 module.exports = function getHandlersPaths(directory) {
-    return recursiveReaddirSync(directory).filter(
+    // Don't filter files starting with a dot
+    return recursiveReaddirSync(directory, () => true).filter(
         name =>
             extname(name) !== "" &&
             includes(methods, basename(name, extname(name)))

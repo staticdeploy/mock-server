@@ -11,7 +11,7 @@
     "test": "env NODE_PATH=src mocha --recursive test",
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "publish-coverage": "codecov",
-    "precommit": "yarn lint",
+    "precommit": "yarn lint && yarn test",
     "prettier": "prettier '@(src|test)/**/*.js'",
     "prettify": "yarn prettier --write",
     "lint:prettier": "yarn prettier --list-different",
