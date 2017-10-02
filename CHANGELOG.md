@@ -1,3 +1,9 @@
+## 1.6.2 (October 2, 2017)
+
+Fixes:
+
+- don't filter files starting with a dot (issue #5)
+
 ## 1.6.1 (September 29, 2017)
 
 Fixes:
