@@ -1,3 +1,9 @@
+## 1.7.0 (November 21, 2017)
+
+Features:
+
+- parse json request bodies in non-strict mode
+
 ## 1.6.2 (October 2, 2017)
 
 Fixes:
