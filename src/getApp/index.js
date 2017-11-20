@@ -38,7 +38,7 @@ module.exports = function getApp(options) {
     const server = express()
         .use(slow({ delay }))
         .use(cors({ origin: /.*/, credentials: true }))
-        .use(bodyParser.json({ limit: "1gb" }))
+        .use(bodyParser.json({ limit: "1gb", strict: false }))
         .use(bodyParser.urlencoded({ limit: "1gb", extended: false }))
         .use(bodyParser.text({ limit: "1gb", type: "text/*" }))
         .use(bodyParser.raw({ limit: "1gb", type: "*/*" }))
