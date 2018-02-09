@@ -7,12 +7,13 @@
     "mock-server": "src/bin/index.js"
   },
   "scripts": {
+    "precommit": "yarn lint && yarn test",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "dev:gitbook": "gitbook install && gitbook serve",
     "test": "env NODE_PATH=src mocha --exit --recursive test",
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "publish-coverage": "codecov",
-    "precommit": "yarn lint && yarn test",
-    "prettier": "prettier '@(src|test)/**/*.js'",
+    "prettier": "prettier '@(src|test|docs|examples)/**/*.@(js|md)'",
     "prettify": "yarn prettier --write",
     "lint:prettier": "yarn prettier --list-different",
     "lint:eslint": "eslint src test",
@@ -59,6 +60,8 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^6.1.0",
+    "@commitlint/config-conventional": "^6.1.0",
     "@staticdeploy/app-server": "^1.1.1",
     "chai": "^4.1.2",
     "codecov": "^3.0.0",

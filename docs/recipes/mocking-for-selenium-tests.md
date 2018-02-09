@@ -8,9 +8,9 @@ by a real user, and it makes real http requests to its API services. As you had
 to do in your local environment, you need to provide the app with access to
 those services. Again, your options are:
 
-- deploying the services in a dedicated remote environment
-- start the services along with your selenium tests
-- mock them (with `mock-server`)
+* deploying the services in a dedicated remote environment
+* start the services along with your selenium tests
+* mock them (with `mock-server`)
 
 If you chose the third option, you still have to start `mock-server` along with
 your selenium tests, but it's probably much easier to start `mock-server` than

@@ -2,12 +2,12 @@
 
 ### Benefits
 
-- during development, you won't need to start locally all the services your app
+* during development, you won't need to start locally all the services your app
   depends on (especially useful when your backend is a fleet of microservices)
-- during development, you won't need to rely on remote services (you can work
+* during development, you won't need to rely on remote services (you can work
   offline!)
-- you can easily simulate all of your API responses and corner cases
-- you can get an idea of all the APIs your app calls just by looking into the
+* you can easily simulate all of your API responses and corner cases
+* you can get an idea of all the APIs your app calls just by looking into the
   `mock-server` directory
 
 ### Comparison with the alternatives

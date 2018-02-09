@@ -31,7 +31,7 @@ server.
 
 In the example, the following options are used when starting `mock-server`:
 
-- `--watch`: starts the server in watch mode; try to change the response in
+* `--watch`: starts the server in watch mode; try to change the response in
   `mock-server/target/get.js` and reload the browser
-- `--delay 1000`: the server waits 1000ms before responding
-- `--require babel-register`: allows to write handler files in ES201X
+* `--delay 1000`: the server waits 1000ms before responding
+* `--require babel-register`: allows to write handler files in ES201X
