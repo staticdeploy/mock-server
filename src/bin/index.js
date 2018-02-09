@@ -13,6 +13,10 @@ const argv = yargs
         describe: "Mock server root directory",
         type: "string"
     })
+    .option("from", {
+        describe: "Name of the package which exports a mock-server definition",
+        type: "string"
+    })
     .option("port", {
         default: "3456",
         describe: "Mock server port",
