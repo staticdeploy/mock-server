@@ -11,11 +11,11 @@ definition file inside of it:
 ```graphql
 # mock-server/graphql/schema.graphql
 type Query {
-    greeting: String
+  greeting: String
 }
 
 schema {
-    query: Query
+  query: Query
 }
 ```
 
@@ -28,7 +28,7 @@ const { graphqlExpress } = require("graphql-server-express");
 const graphqlTools = require("graphql-tools");
 
 const schema = graphqlTools.makeExecutableSchema({
-    typeDefs: [readFileSync(`${__dirname}/schema.graphql`, "utf8")]
+  typeDefs: [readFileSync(`${__dirname}/schema.graphql`, "utf8")]
 });
 graphqlTools.addMockFunctionsToSchema({ schema });
 module.exports = graphqlExpress({ schema });

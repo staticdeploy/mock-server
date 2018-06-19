@@ -6,44 +6,44 @@ writing the files in that language and registering a require hook when starting
 
 ### Babel example
 
-* write a `.babelrc` in the mock-server root:
+- write a `.babelrc` in the mock-server root:
 
-    ```json
-    // mock-server/.babelrc
-    {
-        "presets": ["env"]
-    }
-    ```
+  ```json
+  // mock-server/.babelrc
+  {
+    "presets": ["env"]
+  }
+  ```
 
-    > Note: if you already have a `.babelrc` in your project's root, you can
-    > make `mock-server` use that by simply not writing a `.babelrc` in the
-    > mock-server root.
+  > Note: if you already have a `.babelrc` in your project's root, you can make
+  > `mock-server` use that by simply not writing a `.babelrc` in the mock-server
+  > root.
 
-* write your handler files:
+- write your handler files:
 
-    ```js
-    // mock-server/get.js
-    export default function handler(req, res) {
-        req.status(200).send("OK");
-    }
-    ```
+  ```js
+  // mock-server/get.js
+  export default function handler(req, res) {
+    req.status(200).send("OK");
+  }
+  ```
 
-* install `babel-register` and start the server with
+- install `babel-register` and start the server with
   `mock-server --require babel-register`
 
 ### TypeScript example
 
-* write your handler files:
+- write your handler files:
 
-    ```typescript
-    // mock-server/get.ts
-    import { RequestHandler } from "express";
+  ```typescript
+  // mock-server/get.ts
+  import { RequestHandler } from "express";
 
-    const handler: RequestHandler = (req, res) => {
-        req.status(200).send("OK");
-    };
-    export default handler;
-    ```
+  const handler: RequestHandler = (req, res) => {
+    req.status(200).send("OK");
+  };
+  export default handler;
+  ```
 
-* install `ts-node` and start the server with
+- install `ts-node` and start the server with
   `mock-server --require ts-node/register`

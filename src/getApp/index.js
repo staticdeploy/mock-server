@@ -1,3 +1,4 @@
+const { getConfigScriptHandler } = require("@staticdeploy/app-config");
 const bodyParser = require("body-parser");
 const slow = require("connect-slow");
 const cors = require("cors");
@@ -44,9 +45,13 @@ module.exports = function getApp(options) {
         .use(bodyParser.raw({ limit: "1gb", type: "*/*" }))
         .use(getRouter(root));
     if (serveConfig) {
+        require("dotenv/config");
         server.get(
             "/app-config.js",
-            require("@staticdeploy/app-server").getConfigScriptHandler()
+            getConfigScriptHandler({
+                rawConfig: process.env,
+                configKeyPrefix: "APP_CONFIG_"
+            })
         );
     }
     return server;
