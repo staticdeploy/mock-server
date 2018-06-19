@@ -1,5 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/@staticdeploy/mock-server.svg)](https://www.npmjs.com/package/@staticdeploy/mock-server)
-[![build status](https://travis-ci.org/staticdeploy/mock-server.svg?branch=master)](https://travis-ci.org/staticdeploy/mock-server)
+[![build status](https://img.shields.io/circleci/project/github/staticdeploy/mock-server.svg)](https://circleci.com/gh/staticdeploy/mock-server)
 [![coverage status](https://codecov.io/github/staticdeploy/mock-server/coverage.svg?branch=master)](https://codecov.io/github/staticdeploy/mock-server?branch=master)
 [![dependency status](https://david-dm.org/staticdeploy/mock-server.svg)](https://david-dm.org/staticdeploy/mock-server)
 [![devDependency status](https://david-dm.org/staticdeploy/mock-server/dev-status.svg)](https://david-dm.org/staticdeploy/mock-server#info=devDependencies)
@@ -61,7 +61,7 @@ mock-server
   - [writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
   - [mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
   - [mocking for selenium tests](docs/recipes/mocking-for-selenium-tests.md)
-<!-- Use full urls since these links also need to work in gitbook -->
+    <!-- Use full urls since these links also need to work in gitbook -->
 - examples:
   - [react app](https://github.com/staticdeploy/mock-server/tree/master/examples/react-app)
   - [selenium tests](https://github.com/staticdeploy/mock-server/tree/master/examples/selenium-tests)

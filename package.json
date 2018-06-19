@@ -1,11 +1,33 @@
 {
   "name": "@staticdeploy/mock-server",
-  "version": "1.7.0",
   "description": "Easy to use, no frills mock server",
+  "version": "1.7.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/index.js",
   "bin": {
     "mock-server": "src/bin/index.js"
   },
+  "files": [
+    "src",
+    "docs",
+    "ssl"
+  ],
+  "author": "Paolo Scanferla <paolo.scanferla@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staticdeploy/mock-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/staticdeploy/mock-server/issues"
+  },
+  "keywords": [
+    "mock",
+    "server",
+    "api"
+  ],
   "scripts": {
     "precommit": "yarn lint && yarn test",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -19,28 +41,6 @@
     "lint:eslint": "eslint src test",
     "lint": "yarn lint:prettier && yarn lint:eslint"
   },
-  "keywords": [
-    "mock",
-    "server",
-    "api"
-  ],
-  "files": [
-    "src",
-    "docs",
-    "ssl"
-  ],
-  "author": "Paolo Scanferla <paolo.scanferla@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/staticdeploy/mock-server.git"
-  },
-  "bugs": {
-    "url": "https://github.com/staticdeploy/mock-server/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
@@ -77,6 +77,5 @@
     "prettier": "^1.13.5",
     "strip-indent": "^2.0.0",
     "supertest": "^3.1.0"
-  },
-  "peerDependencies": {}
+  }
 }

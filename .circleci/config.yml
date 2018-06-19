@@ -1,0 +1,52 @@
+version: 2
+jobs:
+  qa:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Run linters
+          command: yarn lint
+      - run:
+          name: Run tests and calculate code coverage
+          command: yarn coverage
+      - run:
+          name: Publish code coverage report
+          command: yarn publish-coverage
+  npm-publish:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Login to npm
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - run:
+          name: Publish to npm
+          command: npm publish
+
+workflows:
+  version: 2
+  qa-npm:
+    jobs:
+      - qa:
+          # Run for all branches and all tags
+          filters:
+            tags:
+              only: /.*/
+      - npm-publish:
+          requires:
+            - qa
+          # Run only for tags starting with a v, don't run for branches
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
