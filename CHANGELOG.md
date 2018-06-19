@@ -1,3 +1,13 @@
+## 1.8.0 (June 19, 2018)
+
+Features:
+
+- when serving `/app-config.js`, auto-import variables defined in `.env`
+
+Chores:
+
+- use `@staticdeploy/app-config` instead of `@staticdeploy/app-server`
+
 ## 1.7.0 (November 21, 2017)
 
 Features:
