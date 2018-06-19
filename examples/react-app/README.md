@@ -8,12 +8,12 @@ Example of using `mock-server` with a trivial react app created with
 ```sh
 git clone https://github.com/staticdeploy/mock-server.git
 cd mock-server/examples/react-app
-npm install
-npm start
+yarn install
+yarn start
 ```
 
-`npm start` will start, in parallel, `create-react-app`'s development server and
-`mock-server`.
+`yarn start` will start, in parallel, `create-react-app`'s development server
+and `mock-server`.
 
 ## What happens in the example
 

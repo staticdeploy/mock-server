@@ -7,11 +7,11 @@ Example of using `mock-server` when running selenium tests.
 ```sh
 git clone https://github.com/staticdeploy/mock-server.git
 cd mock-server/examples/selenium-tests
-npm install
-npm run selenium-tests
+yarn install
+yarn selenium-tests
 ```
 
-> Note: the first time you run `npm run selenium-tests`, the selenium binary
+> Note: the first time you run `yarn selenium-tests`, the selenium binary
 > (~20MB) is downloaded, so it might take a little while. Subsequent runs are
 > faster.
 
