@@ -42,6 +42,7 @@
     "lint": "yarn lint:prettier && yarn lint:eslint"
   },
   "dependencies": {
+    "@staticdeploy/app-config": "^2.0.1",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "connect-slow": "^0.4.0",
@@ -63,7 +64,6 @@
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
-    "@staticdeploy/app-config": "^2.0.1",
     "chai": "^4.1.2",
     "codecov": "^3.0.2",
     "create-fs-tree": "^1.0.0",
