@@ -1,7 +1,7 @@
 {
   "name": "@staticdeploy/mock-server",
   "description": "Easy to use, no frills mock server",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "publishConfig": {
     "access": "public"
   },
