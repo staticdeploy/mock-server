@@ -1,3 +1,9 @@
+## 1.8.1 (September 7, 2018)
+
+Fixes:
+
+- correctly declare `@staticdeploy/app-config` as dependency
+
 ## 1.8.0 (June 19, 2018)
 
 Features:
