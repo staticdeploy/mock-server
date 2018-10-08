@@ -39,6 +39,22 @@ describe("getApp", () => {
                     "post.js": handlerFileContent,
                     "nonHandler.js": handlerFileContent
                 },
+                cookie: {
+                    set: {
+                        // Sets a cookie for the requester
+                        "get.js": stripIndent(`
+                            module.exports = (req, res) => {
+                                res.cookie("cookie", "test").send();
+                            };
+                        `)
+                    },
+                    // Returns request cookies
+                    "get.js": stripIndent(`
+                        module.exports = (req, res) => {
+                            res.send(req.cookies)
+                        };
+                    `)
+                },
                 "get.js": handlerFileContent,
                 post: handlerFileContent
             });
@@ -53,44 +69,19 @@ describe("getApp", () => {
         });
 
         describe("who handles cookies", () => {
-            let cookieRequest;
-
-            before(() => {
-                const handlerSetCookie = stripIndent(`
-                    module.exports = (req, res) => {
-                        res.cookie('cookie', 'test');
-                        res.send();
-                    };
-                `);
-                const handlerGetCookie = stripIndent(`
-                    module.exports = (req, res) => {
-                        res.send(req.cookies)
-                    };
-                `);
-                createTree(root, {
-                    cookie: {
-                        set: {
-                            "get.js": handlerSetCookie
-                        },
-                        "get.js": handlerGetCookie
-                    }
-                });
-
-                cookieRequest = request.agent(
-                    getApp({ delay, root, serveConfig })
-                );
-            });
-
-            it("sets cookie", () => {
-                return cookieRequest
+            it("case: allows setting cookies", () => {
+                return request(getApp({ delay, root, serveConfig }))
                     .get("/cookie/set")
-                    .expect("set-cookie", "cookie=test; Path=/");
+                    .expect("Set-Cookie", "cookie=test; Path=/");
             });
 
-            it("gets cookie", () => {
-                return cookieRequest.get("/cookie").expect({
-                    cookie: "test"
-                });
+            it("case: correctly parses request cookies", () => {
+                return request(getApp({ delay, root, serveConfig }))
+                    .get("/cookie")
+                    .set("Cookie", "cookie=test")
+                    .expect({
+                        cookie: "test"
+                    });
             });
         });
 
