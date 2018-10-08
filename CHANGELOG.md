@@ -1,3 +1,9 @@
+## 1.9.0 (October 8, 2018)
+
+Features:
+
+- support parsing and setting cookies in handlers
+
 ## 1.8.1 (September 7, 2018)
 
 Fixes:
