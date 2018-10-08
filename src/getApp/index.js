@@ -1,5 +1,6 @@
 const { getConfigScriptHandler } = require("@staticdeploy/app-config");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const slow = require("connect-slow");
 const cors = require("cors");
 const decache = require("decache");
@@ -43,6 +44,7 @@ module.exports = function getApp(options) {
         .use(bodyParser.urlencoded({ limit: "1gb", extended: false }))
         .use(bodyParser.text({ limit: "1gb", type: "text/*" }))
         .use(bodyParser.raw({ limit: "1gb", type: "*/*" }))
+        .use(cookieParser())
         .use(getRouter(root));
     if (serveConfig) {
         require("dotenv/config");

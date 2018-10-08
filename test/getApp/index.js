@@ -52,6 +52,48 @@ describe("getApp", () => {
                 .expect("Access-Control-Allow-Origin", "http://localhost:8080");
         });
 
+        describe("who handles cookies", () => {
+            let cookieRequest;
+
+            before(() => {
+                const handlerSetCookie = stripIndent(`
+                    module.exports = (req, res) => {
+                        res.cookie('cookie', 'test');
+                        res.send();
+                    };
+                `);
+                const handlerGetCookie = stripIndent(`
+                    module.exports = (req, res) => {
+                        res.send(req.cookies)
+                    };
+                `);
+                createTree(root, {
+                    cookie: {
+                        set: {
+                            "get.js": handlerSetCookie
+                        },
+                        "get.js": handlerGetCookie
+                    }
+                });
+
+                cookieRequest = request.agent(
+                    getApp({ delay, root, serveConfig })
+                );
+            });
+
+            it("sets cookie", () => {
+                return cookieRequest
+                    .get("/cookie/set")
+                    .expect("set-cookie", "cookie=test; Path=/");
+            });
+
+            it("gets cookie", () => {
+                return cookieRequest.get("/cookie").expect({
+                    cookie: "test"
+                });
+            });
+        });
+
         describe("parsing requests bodies of different content types", () => {
             it("case: application/json bodies parsed as objects", () => {
                 return request(getApp({ delay, root, serveConfig }))
