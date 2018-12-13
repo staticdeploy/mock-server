@@ -7,6 +7,7 @@ const decache = require("decache");
 const express = require("express");
 
 const getRoutes = require("./getRoutes");
+const getMiddleware = require("./getMiddleware");
 
 function getRouter(root) {
     const router = express.Router();
@@ -46,6 +47,9 @@ module.exports = function getApp(options) {
         .use(bodyParser.raw({ limit: "1gb", type: "*/*" }))
         .use(cookieParser())
         .use(getRouter(root));
+    if (options.middleware) {
+        server.use(getMiddleware(options));
+    }
     if (serveConfig) {
         require("dotenv/config");
         server.get(

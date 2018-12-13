@@ -22,6 +22,9 @@ Basic usage:
   enabled `mock-server` generates a self signed certificate that your borswer
   needs to trust before being able to make API calls to the server. To trust the
   certificate, visit https://localhost:3456 and dismiss the security warning
+- `middleware`: path string to file which returns an array of express
+  middleware. Note, the path should be relative to the mock server root
+  directory
 
 ### Writing handler files
 
