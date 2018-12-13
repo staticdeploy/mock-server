@@ -1,3 +1,9 @@
+## 1.10.0 (December 13, 2018)
+
+Features:
+
+- support using custom middleware
+
 ## 1.9.0 (October 8, 2018)
 
 Features:
