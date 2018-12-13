@@ -1,6 +1,6 @@
 /*
-*   Code taken from webpack-dev-server and adapted to mock-server's needs
-*/
+ *  Code taken from webpack-dev-server and adapted to mock-server's needs
+ */
 const del = require("del");
 const { existsSync, readFileSync, statSync, writeFileSync } = require("fs");
 const { join } = require("path");
