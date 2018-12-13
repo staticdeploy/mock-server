@@ -1,11 +1,21 @@
-const { join, resolve } = require("path");
+const { existsSync } = require("fs");
 
-module.exports = function getMiddleware(options) {
-    const middlewarePath = join(resolve(options.root), options.middleware);
-    const middlewareExport = require(middlewarePath);
-    const middleware =
-        middlewareExport && middlewareExport.__esModule
-            ? middlewareExport.default
-            : middlewareExport;
-    return middleware(options);
+const interopRequire = require("./interopRequire");
+
+/*
+*   getMiddleware takes as input the path to a middleware file which exports an
+*   array of express middleware functions. If no file exists at the provided
+*   path, an empty array is returned
+*/
+module.exports = function getMiddleware(middlewarePath) {
+    if (!existsSync(middlewarePath)) {
+        return [];
+    }
+    const middleware = interopRequire(middlewarePath);
+    if (!Array.isArray(middleware)) {
+        throw new Error(
+            "The middleware file must export an array of express midleware functions"
+        );
+    }
+    return middleware;
 };

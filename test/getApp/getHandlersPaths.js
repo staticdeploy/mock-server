@@ -8,7 +8,7 @@ const { basename, extname, join, isAbsolute } = require("path");
 const getHandlersPaths = require("getApp/getHandlersPaths");
 
 describe("getHandlersPaths", () => {
-    const root = join(tmpdir(), "mock-server");
+    const root = join(tmpdir(), "mock-server/getApp/getHandlersPaths");
 
     before(() => {
         createTree(root, {

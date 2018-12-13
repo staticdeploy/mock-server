@@ -7,7 +7,7 @@ const { join } = require("path");
 const getRoutes = require("getApp/getRoutes");
 
 describe("getRoutes", () => {
-    const root = join(tmpdir(), "mock-server");
+    const root = join(tmpdir(), "mock-server/getApp/getRoutes");
 
     before(() => {
         createTree(root, {

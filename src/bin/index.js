@@ -44,8 +44,8 @@ const argv = yargs
         type: "array"
     })
     .option("middleware", {
-        default: null,
-        describe: "path to file which returns array of express middleware",
+        default: "middleware.js",
+        describe: "File exporting an array of express middleware",
         type: "string"
     })
     .wrap(Math.min(120, yargs.terminalWidth()))

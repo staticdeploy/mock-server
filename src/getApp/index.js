@@ -5,9 +5,11 @@ const slow = require("connect-slow");
 const cors = require("cors");
 const decache = require("decache");
 const express = require("express");
+const { join } = require("path");
 
 const getRoutes = require("./getRoutes");
 const getMiddleware = require("./getMiddleware");
+const interopRequire = require("./interopRequire");
 
 function getRouter(root) {
     const router = express.Router();
@@ -20,11 +22,7 @@ function getRouter(root) {
         // would not include the changes that triggered the server
         // configuration
         decache(handlerRequirePath);
-        const handlerExport = require(handlerRequirePath);
-        const handler =
-            handlerExport && handlerExport.__esModule
-                ? handlerExport.default
-                : handlerExport;
+        const handler = interopRequire(handlerRequirePath);
         if (typeof handler !== "function") {
             throw new Error(
                 `Handler file for route "${method.toUpperCase()} ${path}" must export a function`
@@ -39,17 +37,24 @@ function getRouter(root) {
 module.exports = function getApp(options) {
     const { delay, root, serveConfig } = options;
     const server = express()
+        // Delay requests by the specified amount of time
         .use(slow({ delay }))
+        // Add cors headers
         .use(cors({ origin: /.*/, credentials: true }))
+        // Parse common bodies
         .use(bodyParser.json({ limit: "1gb", strict: false }))
         .use(bodyParser.urlencoded({ limit: "1gb", extended: false }))
         .use(bodyParser.text({ limit: "1gb", type: "text/*" }))
         .use(bodyParser.raw({ limit: "1gb", type: "*/*" }))
+        // Parse cookies
         .use(cookieParser())
-        .use(getRouter(root));
-    if (options.middleware) {
-        server.use(getMiddleware(options));
-    }
+        // Attach custom middleware and routes
+        .use([
+            ...getMiddleware(join(options.root, options.middleware)),
+            getRouter(root)
+        ]);
+
+    // Serve /app-config.js
     if (serveConfig) {
         require("dotenv/config");
         server.get(
@@ -60,5 +65,6 @@ module.exports = function getApp(options) {
             })
         );
     }
+
     return server;
 };
