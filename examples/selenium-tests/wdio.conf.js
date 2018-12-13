@@ -16,10 +16,10 @@ exports.config = {
     reporters: ["spec"],
     onPrepare: () => {
         console.log("Building app...");
-        execSync("npm run build");
+        execSync("yarn build");
         console.log("Starting mock and static servers...");
-        mockServer = spawn("npm", ["run", "start:mock-server"]);
-        staticServer = spawn("npm", ["run", "serve"]);
+        mockServer = spawn("yarn", ["start:mock-server"]);
+        staticServer = spawn("yarn", ["serve"]);
     },
     onComplete: () => {
         console.log("Stopping mock and static servers...");

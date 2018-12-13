@@ -11,7 +11,7 @@ writing the files in that language and registering a require hook when starting
   ```json
   // mock-server/.babelrc
   {
-    "presets": ["env"]
+    "presets": ["@babel/preset-env"]
   }
   ```
 
@@ -28,8 +28,8 @@ writing the files in that language and registering a require hook when starting
   }
   ```
 
-- install `babel-register` and start the server with
-  `mock-server --require babel-register`
+- install `@babel/register` and start the server with
+  `mock-server --require @babel/register`
 
 ### TypeScript example
 
