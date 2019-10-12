@@ -6,15 +6,19 @@ const cors = require("cors");
 const decache = require("decache");
 const express = require("express");
 const { join } = require("path");
+const Ajv = require("ajv");
+const fs = require("fs");
 
 const getRoutes = require("./getRoutes");
 const getMiddleware = require("./getMiddleware");
 const interopRequire = require("./interopRequire");
+const getSchemaHandlers = require("./getSchemaHandler");
+const errorHandler = require("./errorHandler");
 
-function getRouter(root) {
+function getRouter(root, ajv) {
     const router = express.Router();
     getRoutes(root).forEach(route => {
-        const { method, path, handlerRequirePath } = route;
+        const { method, path, handlerRequirePath, schemaRequirePath } = route;
         // Since this function can be run multiple times when the watch option
         // is enabled, before getting the handler we need to delete the
         // (possibly) cached one - and all of its child modules - from require
@@ -22,12 +26,18 @@ function getRouter(root) {
         // would not include the changes that triggered the server
         // configuration
         decache(handlerRequirePath);
-        const handler = interopRequire(handlerRequirePath);
+        let handler = interopRequire(handlerRequirePath);
         if (typeof handler !== "function") {
             throw new Error(
                 `Handler file for route "${method.toUpperCase()} ${path}" must export a function`
             );
         }
+        // validate data on schema
+        const existSchemaFile = fs.existsSync(schemaRequirePath);
+        if (existSchemaFile) {
+            handler = getSchemaHandlers(ajv, schemaRequirePath, handler);
+        }
+
         // Register route
         router[method](path, handler);
     });
@@ -35,6 +45,9 @@ function getRouter(root) {
 }
 
 module.exports = function getApp(options) {
+    const ajv = new Ajv({
+        coerceTypes: true
+    });
     const { delay, root, serveConfig } = options;
     const server = express()
         // Delay requests by the specified amount of time
@@ -51,8 +64,10 @@ module.exports = function getApp(options) {
         // Attach custom middleware and routes
         .use([
             ...getMiddleware(join(options.root, options.middleware)),
-            getRouter(root)
-        ]);
+            getRouter(root, ajv)
+        ])
+        // Custom error handlers
+        .use(errorHandler);
 
     // Serve /app-config.js
     if (serveConfig) {

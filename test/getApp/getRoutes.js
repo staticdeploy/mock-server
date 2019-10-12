@@ -36,27 +36,32 @@ describe("getRoutes", () => {
                 {
                     handlerRequirePath: `${root}/users/{userId}/get.js`,
                     method: "get",
-                    path: "/users/:userId"
+                    path: "/users/:userId",
+                    schemaRequirePath: `${root}/users/{userId}/get.schema.json`
                 },
                 {
                     handlerRequirePath: `${root}/users/{userId}/put.js`,
                     method: "put",
-                    path: "/users/:userId"
+                    path: "/users/:userId",
+                    schemaRequirePath: `${root}/users/{userId}/put.schema.json`
                 },
                 {
                     handlerRequirePath: `${root}/users/get.js`,
                     method: "get",
-                    path: "/users"
+                    path: "/users",
+                    schemaRequirePath: `${root}/users/get.schema.json`
                 },
                 {
                     handlerRequirePath: `${root}/users/post.js`,
                     method: "post",
-                    path: "/users"
+                    path: "/users",
+                    schemaRequirePath: `${root}/users/post.schema.json`
                 },
                 {
                     handlerRequirePath: `${root}/get.js`,
                     method: "get",
-                    path: "/"
+                    path: "/",
+                    schemaRequirePath: `${root}/get.schema.json`
                 }
             ],
             "path"

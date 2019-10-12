@@ -19,6 +19,7 @@ describe("getHandlersPaths", () => {
                     nonHandler: ""
                 },
                 "get.js": "",
+                "get.schema.js": "",
                 "post.js": "",
                 "nonHandler.js": ""
             },
