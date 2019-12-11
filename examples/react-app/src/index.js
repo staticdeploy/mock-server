@@ -5,7 +5,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3456";
 
 class App extends React.Component {
     state = { target: null };
-    async componentWillMount() {
+    async componentDidMount() {
         const response = await fetch(`${API_URL}/target`);
         const target = await response.text();
         this.setState({ target });
