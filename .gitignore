@@ -8,6 +8,3 @@ coverage/
 
 # Gitbook build folder
 _book/
-
-# Editor folders
-.vscode
