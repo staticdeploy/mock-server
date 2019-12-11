@@ -22,15 +22,15 @@ const initValidator = function(ajv, schema) {
 };
 
 function validateWrapper(ajv) {
-    return function(req, validator, data, entity) {
+    return function(req, validator, data, errorSource) {
         if (!data) {
             return;
         }
         const isValid = validator(data);
         if (!isValid) {
-            req.schemaValidationFailed = entity;
+            req.schemaValidationFailed = errorSource;
             throw new Error(
-                ajv.errorsText(validator.errors, { dataVar: entity })
+                ajv.errorsText(validator.errors, { dataVar: errorSource })
             );
         }
     };

@@ -45,7 +45,7 @@ function getRouter(root, ajv) {
 }
 
 module.exports = function getApp(options) {
-    const ajv = new Ajv({ coerceTypes: true });
+    const ajv = new Ajv();
     const { delay, root, serveConfig } = options;
     const server = express()
         // Delay requests by the specified amount of time
