@@ -18,6 +18,31 @@ describe("getApp", () => {
         destroyTree(baseOptions.root);
     });
 
+    const usersSchema = {
+        response: {
+            type: "object",
+            properties: {
+                method: { type: "string" },
+                path: { type: "string" },
+                params: { type: "object" },
+                body: { type: "object" }
+            }
+        },
+        query: {
+            type: "object",
+            additionalProperties: false
+        }
+    };
+    const updateUserSchema = {
+        body: {
+            type: "object",
+            properties: {
+                key: { type: "string" }
+            },
+            additionalProperties: false
+        }
+    };
+
     describe("returns an express app", () => {
         beforeEach(() => {
             const handlerFileContent = `
@@ -42,11 +67,13 @@ describe("getApp", () => {
                 users: {
                     "{userId}": {
                         "get.js": handlerFileContent,
+                        "get.schema.json": JSON.stringify(usersSchema),
                         "put.js": handlerFileContent,
                         nonHandler: handlerFileContent
                     },
                     "get.js": handlerFileContent,
                     "post.js": handlerFileContent,
+                    "post.schema.json": JSON.stringify(updateUserSchema),
                     "nonHandler.js": handlerFileContent
                 },
                 cookie: {
@@ -214,6 +241,19 @@ describe("getApp", () => {
                     });
             });
 
+            it("case: GET /users/:userId with schema validation failing", () => {
+                return request(getApp(baseOptions))
+                    .get("/users/myUserId")
+                    .query({
+                        foo: "bar"
+                    })
+                    .expect(400)
+                    .expect({
+                        error: "Bad Request",
+                        message: "query should NOT have additional properties"
+                    });
+            });
+
             it("case: PUT /users/:userId", () => {
                 return request(getApp(baseOptions))
                     .put("/users/myUserId")
@@ -255,6 +295,21 @@ describe("getApp", () => {
                         body: {
                             key: "value"
                         }
+                    });
+            });
+
+            it("case: POST /users with schema validation failing", () => {
+                return request(getApp(baseOptions))
+                    .post("/users")
+                    .send({
+                        key: "value",
+                        foo: "bar"
+                    })
+                    .expect(400)
+                    .expect({
+                        error: "Bad Request",
+                        message:
+                            "requestBody should NOT have additional properties"
                     });
             });
 
