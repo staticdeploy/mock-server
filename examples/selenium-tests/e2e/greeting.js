@@ -5,8 +5,9 @@ describe("I visit /", () => {
         await browser.url("/");
     });
     it('I see the greeting "Hello world!"', async () => {
-        await browser.waitForVisible(".greeting", 2000);
-        const greeting = await browser.getText(".greeting");
+        const element = await browser.$(".greeting");
+        await element.waitForDisplayed(2000);
+        const greeting = await element.getText();
         equal(greeting, "Hello world!");
     });
 });
