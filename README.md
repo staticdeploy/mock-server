@@ -61,7 +61,6 @@ mock-server
   - [writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
   - [mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
   - [mocking for selenium tests](docs/recipes/mocking-for-selenium-tests.md)
-    <!-- Use full urls since these links also need to work in gitbook -->
 - examples:
-  - [react app](https://github.com/staticdeploy/mock-server/tree/master/examples/react-app)
-  - [selenium tests](https://github.com/staticdeploy/mock-server/tree/master/examples/selenium-tests)
+  - [react app](examples/react-app)
+  - [selenium tests](examples/selenium-tests)

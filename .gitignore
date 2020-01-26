@@ -5,6 +5,3 @@ npm-debug.log
 # Nyc (code coverage) folders
 coverage/
 .nyc_output
-
-# Gitbook build folder
-_book/

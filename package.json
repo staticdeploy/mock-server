@@ -29,7 +29,6 @@
     "api"
   ],
   "scripts": {
-    "dev:gitbook": "gitbook install && gitbook serve",
     "test": "env NODE_PATH=src mocha --exit --recursive test",
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "publish-coverage": "codecov",
@@ -63,14 +62,11 @@
     "yargs": "^15.0.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
     "chai": "^4.2.0",
     "codecov": "^3.6.1",
     "create-fs-tree": "^1.0.0",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
-    "gitbook-cli": "^2.3.2",
     "husky": "^4.2.1",
     "lodash.sortby": "^4.7.0",
     "mocha": "^7.0.1",
