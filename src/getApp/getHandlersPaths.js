@@ -7,7 +7,7 @@ const { basename, extname } = require("path");
  *  A handler file is a .js (or .something) file whose name matches an http
  *  method. Examples:
  *    - get.js
- *     - post.js
+ *    - post.js
  *  The function returns an array of paths relative to the input directory.
  *  Example:
  *    given the following filesystem structure:
