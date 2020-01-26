@@ -57,6 +57,7 @@ mock-server
 
 - [user guide](docs/user-guide.md)
 - [why you should use `mock-server`](docs/why-use-mock-server.md)
+- [validating requests and responses](docs/validation.md)
 - recipes:
   - [writing handler files in a compile-to-js language](docs/recipes/using-compile-to-js-languages.md)
   - [mocking a graphql server](docs/recipes/mocking-a-graphql-server.md)
