@@ -13,7 +13,7 @@ const getRoutes = require("./getRoutes");
 const getMiddleware = require("./getMiddleware");
 const interopRequire = require("./interopRequire");
 const getSchemaHandlers = require("./getSchemaHandler");
-const errorHandler = require("./errorHandler");
+const requestValidationErrorHandler = require("./requestValidationErrorHandler");
 
 function getRouter(root, ajv) {
     const router = express.Router();
@@ -65,7 +65,7 @@ module.exports = function getApp(options) {
             getRouter(root, ajv)
         ])
         // Custom error handlers
-        .use(errorHandler);
+        .use(requestValidationErrorHandler);
 
     // Serve /app-config.js
     if (serveConfig) {

@@ -7,7 +7,7 @@ const request = require("supertest");
 const bodyParser = require("body-parser");
 
 const getSchemaHandler = require("getApp/getSchemaHandler");
-const errorHandler = require("getApp/errorHandler");
+const requestValidationErrorHandler = require("getApp/requestValidationErrorHandler");
 
 describe("get schema handlers", () => {
     const root = `${tmpdir()}/mock-server/getApp/getSchemaHandler`;
@@ -22,21 +22,21 @@ describe("get schema handlers", () => {
             query: req.query
         });
     };
-    const paramsSchema = {
+    const requestParamsSchema = {
         type: "object",
         properties: {
             param1: { type: "string" },
             param2: { type: "number" }
         }
     };
-    const querySchema = {
+    const requestQuerySchema = {
         type: "object",
         properties: {
             foo: { type: "string" }
         },
         required: ["foo"]
     };
-    const onlyReqBody = {
+    const requestBodySchema = {
         type: "object",
         properties: {
             list: {
@@ -49,7 +49,7 @@ describe("get schema handlers", () => {
         },
         required: ["list"]
     };
-    const onlyResponse = {
+    const responseBodySchema = {
         type: "object",
         properties: {
             method: { type: "string" },
@@ -75,15 +75,27 @@ describe("get schema handlers", () => {
         ajv = new Ajv({ coerceTypes: true });
         createTree(root, {
             "empty-schema.json": "{}",
-            "only-params.json": JSON.stringify({ params: paramsSchema }),
-            "only-query.json": JSON.stringify({ query: querySchema }),
-            "only-req-body.json": JSON.stringify({ body: onlyReqBody }),
-            "only-response.json": JSON.stringify({ response: onlyResponse }),
+            "only-params.json": JSON.stringify({
+                request: { params: requestParamsSchema }
+            }),
+            "only-query.json": JSON.stringify({
+                request: { query: requestQuerySchema }
+            }),
+            "only-req-body.json": JSON.stringify({
+                request: { body: requestBodySchema }
+            }),
+            "only-response.json": JSON.stringify({
+                response: { body: responseBodySchema }
+            }),
             "all.json": JSON.stringify({
-                params: paramsSchema,
-                query: querySchema,
-                body: onlyReqBody,
-                response: onlyResponse
+                request: {
+                    params: requestParamsSchema,
+                    query: requestQuerySchema,
+                    body: requestBodySchema
+                },
+                response: {
+                    body: responseBodySchema
+                }
             })
         });
         server = express().use(
@@ -104,7 +116,7 @@ describe("get schema handlers", () => {
         expect(handler).to.equal(originalHandler);
     });
 
-    describe("with only params schema", () => {
+    describe("with request params schema", () => {
         it("validate successfully", () => {
             const handler = getSchemaHandler(
                 ajv,
@@ -133,7 +145,9 @@ describe("get schema handlers", () => {
                 originalHandler
             );
             return request(
-                server.get("/my-api/:param1/:param2", handler).use(errorHandler)
+                server
+                    .get("/my-api/:param1/:param2", handler)
+                    .use(requestValidationErrorHandler)
             )
                 .get("/my-api/foo/bar")
                 .expect(400)
@@ -144,7 +158,7 @@ describe("get schema handlers", () => {
         });
     });
 
-    describe("with only query schema", () => {
+    describe("with request query schema", () => {
         it("validate successfully", () => {
             const handler = getSchemaHandler(
                 ajv,
@@ -174,7 +188,11 @@ describe("get schema handlers", () => {
                 `${root}/only-query.json`,
                 originalHandler
             );
-            return request(server.get("/my-api", handler).use(errorHandler))
+            return request(
+                server
+                    .get("/my-api", handler)
+                    .use(requestValidationErrorHandler)
+            )
                 .get("/my-api")
                 .expect(400)
                 .expect({
@@ -184,7 +202,7 @@ describe("get schema handlers", () => {
         });
     });
 
-    describe("with only body schema", () => {
+    describe("with request body schema", () => {
         it("validate successfully", () => {
             const handler = getSchemaHandler(
                 ajv,
@@ -216,7 +234,11 @@ describe("get schema handlers", () => {
                 `${root}/only-req-body.json`,
                 originalHandler
             );
-            return request(server.post("/my-api", handler).use(errorHandler))
+            return request(
+                server
+                    .post("/my-api", handler)
+                    .use(requestValidationErrorHandler)
+            )
                 .post("/my-api")
                 .send({
                     list: [1, "foo"]
@@ -229,7 +251,7 @@ describe("get schema handlers", () => {
         });
     });
 
-    describe("with only response schema", () => {
+    describe("with response body schema", () => {
         it("validate successfully", () => {
             const handler = getSchemaHandler(
                 ajv,
@@ -249,7 +271,7 @@ describe("get schema handlers", () => {
         });
 
         it("throws during validation", () => {
-            const originalErrorHandler = (req, res) => {
+            const badResponseHandler = (req, res) => {
                 res.status(200).send({
                     another: "body"
                 });
@@ -257,19 +279,19 @@ describe("get schema handlers", () => {
             const handler = getSchemaHandler(
                 ajv,
                 `${root}/only-response.json`,
-                originalErrorHandler
+                badResponseHandler
             );
-            return request(server.get("/my-api", handler).use(errorHandler))
+            return request(server.get("/my-api", handler))
                 .get("/my-api")
-                .expect(400)
+                .expect(500)
                 .expect({
-                    error: "Bad Request",
+                    error: "Bad Response",
                     message: "response should NOT have additional properties"
                 });
         });
     });
 
-    describe("with a complete schema", () => {
+    describe("with a schema for everything", () => {
         it("validate successfully", () => {
             const handler = getSchemaHandler(
                 ajv,
@@ -310,7 +332,7 @@ describe("get schema handlers", () => {
             return request(
                 server
                     .post("/my-api/:param1/:param2", handler)
-                    .use(errorHandler)
+                    .use(requestValidationErrorHandler)
             )
                 .post("/my-api/param/34")
                 .expect(400)

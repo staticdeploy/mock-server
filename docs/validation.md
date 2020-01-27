@@ -29,11 +29,8 @@ A schema file contains a json object with the following properties:
 - `request`: object grouping the following properties
   - `query`: json schema to validate the request query
   - `params`: json schema to validate the request params
-  - `headers`: json schema to validate the request headers
   - `body`: json schema to validate the json request body
 - `response`: object grouping the following properties
-  - `statusCode`: json schema to validate the response status code
-  - `headers`: json schema to validate the response headers
   - `body`: json schema to validate the json response body
 
 Validation is not performed on the parts of the request/response for which there

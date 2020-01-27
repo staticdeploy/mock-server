@@ -1,5 +1,5 @@
 const recursiveReaddirSync = require("fs-readdir-recursive");
-const includes = require("lodash.includes");
+const { includes } = require("lodash");
 const methods = require("methods");
 const { basename, extname } = require("path");
 

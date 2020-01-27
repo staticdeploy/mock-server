@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const { createTree, destroyTree } = require("create-fs-tree");
-const sortBy = require("lodash.sortby");
+const { sortBy } = require("lodash");
 const { tmpdir } = require("os");
 const { join } = require("path");
 

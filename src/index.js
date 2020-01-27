@@ -2,7 +2,7 @@ const { cyan, green } = require("chalk");
 const log = require("fancy-log");
 const http = require("http");
 const https = require("https");
-const debounce = require("lodash.debounce");
+const { debounce } = require("lodash");
 const fsWatch = require("node-watch");
 const { basename } = require("path");
 
