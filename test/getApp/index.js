@@ -19,27 +19,33 @@ describe("getApp", () => {
     });
 
     const usersSchema = {
-        response: {
-            type: "object",
-            properties: {
-                method: { type: "string" },
-                path: { type: "string" },
-                params: { type: "object" },
-                body: { type: "object" }
+        request: {
+            query: {
+                type: "object",
+                additionalProperties: false
             }
         },
-        query: {
-            type: "object",
-            additionalProperties: false
+        response: {
+            body: {
+                type: "object",
+                properties: {
+                    method: { type: "string" },
+                    path: { type: "string" },
+                    params: { type: "object" },
+                    body: { type: "object" }
+                }
+            }
         }
     };
     const updateUserSchema = {
-        body: {
-            type: "object",
-            properties: {
-                key: { type: "string" }
-            },
-            additionalProperties: false
+        request: {
+            body: {
+                type: "object",
+                properties: {
+                    key: { type: "string" }
+                },
+                additionalProperties: false
+            }
         }
     };
 

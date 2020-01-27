@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const { createTree, destroyTree } = require("create-fs-tree");
-const includes = require("lodash.includes");
+const { includes } = require("lodash");
 const methods = require("methods");
 const { tmpdir } = require("os");
 const { basename, extname, join, isAbsolute } = require("path");

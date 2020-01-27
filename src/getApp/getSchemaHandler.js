@@ -1,23 +1,28 @@
 const decache = require("decache");
 const mung = require("express-mung");
+const { get } = require("lodash");
 
-const errorHandler = require("./errorHandler");
+const responseValidationErrorHandler = require("./responseValidationErrorHandler");
 const interopRequire = require("./interopRequire");
 
 const initValidator = function(ajv, schema) {
-    const validateBody = schema.body ? ajv.compile(schema.body) : () => true;
-    const validateQuery = schema.query ? ajv.compile(schema.query) : () => true;
-    const validateParams = schema.params
-        ? ajv.compile(schema.params)
+    const validateRequestBody = get(schema, "request.body")
+        ? ajv.compile(get(schema, "request.body"))
         : () => true;
-    const validateResponse = schema.response
-        ? ajv.compile(schema.response)
+    const validateRequestQuery = get(schema, "request.query")
+        ? ajv.compile(get(schema, "request.query"))
+        : () => true;
+    const validateRequestParams = get(schema, "request.params")
+        ? ajv.compile(get(schema, "request.params"))
+        : () => true;
+    const validateResponseBody = get(schema, "response.body")
+        ? ajv.compile(get(schema, "response.body"))
         : () => true;
     return {
-        validateBody,
-        validateQuery,
-        validateParams,
-        validateResponse
+        validateRequestBody: validateRequestBody,
+        validateRequestQuery: validateRequestQuery,
+        validateRequestParams: validateRequestParams,
+        validateResponseBody: validateResponseBody
     };
 };
 
@@ -37,38 +42,37 @@ function validateWrapper(ajv) {
 }
 
 /*
- *  getMiddleware takes ajv instance and schema require path.
- *  Schema file must be a json that can contains these keys:
- *  * body: json schema of the expected input body
- *  * query: json schema of the expected input query
- *  * params: json schema of the expected input params
- *  * response: json schema to validate response body created in the handler
+ *  getMiddleware takes an ajv instance and the path to a schema file. The
+ *  schema file is a json object containing some of the following keys:
+ *  - request.body: json schema of  request body
+ *  - request.query: json schema of the expected input query
+ *  - request.params: json schema of the expected input params
+ *  - response.body: json schema to validate response body created in the
+ *    handler
  */
 module.exports = function(ajv, schemaRequirePath, originalHandler) {
     decache(schemaRequirePath);
     const schema = interopRequire(schemaRequirePath);
     if (schema && Object.keys(schema).length > 0) {
         const {
-            validateParams,
-            validateQuery,
-            validateBody,
-            validateResponse
+            validateRequestParams,
+            validateRequestQuery,
+            validateRequestBody,
+            validateResponseBody
         } = initValidator(ajv, schema);
         const validate = validateWrapper(ajv);
-        const reqValidator = function(req, res, next) {
-            validate(req, validateParams, req.params, "params");
-            validate(req, validateQuery, req.query, "query");
-            validate(req, validateBody, req.body, "requestBody");
-
+        const requestValidator = function(req, _res, next) {
+            validate(req, validateRequestParams, req.params, "params");
+            validate(req, validateRequestQuery, req.query, "query");
+            validate(req, validateRequestBody, req.body, "requestBody");
             next();
         };
-        const resValidator = mung.json(function(body, req) {
-            validate(req, validateResponse, body, "response");
-
+        const responseValidator = mung.json(function(body, req) {
+            validate(req, validateResponseBody, body, "response");
             return body;
         });
-        mung.onError = errorHandler;
-        return [reqValidator, resValidator, originalHandler];
+        mung.onError = responseValidationErrorHandler;
+        return [requestValidator, responseValidator, originalHandler];
     }
     return originalHandler;
 };

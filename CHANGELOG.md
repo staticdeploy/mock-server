@@ -1,3 +1,9 @@
+## 1.11.0 (January 27, 2020)
+
+Features:
+
+- support validating requests and responses with schema files
+
 ## 1.10.0 (December 13, 2018)
 
 Features:

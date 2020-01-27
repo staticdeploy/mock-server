@@ -1,7 +1,7 @@
 const express = require("express");
 const request = require("supertest");
 
-const errorHandler = require("getApp/errorHandler");
+const requestValidationErrorHandler = require("getApp/requestValidationErrorHandler");
 
 describe("error handler", () => {
     let server;
@@ -16,7 +16,7 @@ describe("error handler", () => {
                 req.schemaValidationFailed = "entity";
                 next(new Error("some error"));
             })
-            .use(errorHandler);
+            .use(requestValidationErrorHandler);
     });
 
     it("returns correct error if schemaValidationFailed falsy", () => {
