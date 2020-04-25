@@ -76,6 +76,22 @@ Request bodies are parsed according to their mime-type:
   urlencoded body
 - **\*/\***: `req.body` is a buffer, the raw body
 
+### Delay response by route
+
+Route response could be delayed using the `delay` method in response object.
+Example usage:
+
+```js
+module.exports = (req, res) => {
+  res
+    .delay(1000)
+    .status(200)
+    .send("Delayed response");
+};
+```
+
+The delay method accept the number of milliseconds to delay the request.
+
 ### Validating requests and responses
 
 Read the [validation guide](validation.md) to learn how to validate requests
