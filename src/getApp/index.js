@@ -44,6 +44,14 @@ function getRouter(root, ajv) {
     return router;
 }
 
+express.response.delay = function(delayMs) {
+    const startPoint = new Date().getTime();
+    while (new Date().getTime() - startPoint <= delayMs) {
+        /* wait */
+    }
+    return this;
+};
+
 module.exports = function getApp(options) {
     const ajv = new Ajv();
     const { delay, root, serveConfig } = options;

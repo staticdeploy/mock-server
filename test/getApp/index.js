@@ -98,6 +98,14 @@ describe("getApp", () => {
                         };
                     `
                 },
+                delay: {
+                    "get.js": `
+                        module.exports = (req, res) => {
+                            const now = new Date().getTime()
+                            res.delay(1000).send({startTime: now})
+                        }
+                    `
+                },
                 "get.js": handlerFileContent,
                 post: handlerFileContent
             });
@@ -126,6 +134,16 @@ describe("getApp", () => {
                         cookie: "test"
                     });
             });
+        });
+
+        it("handles response delay per route", () => {
+            return request(getApp(baseOptions))
+                .get("/delay")
+                .expect(function(res) {
+                    const now = new Date().getTime();
+                    const { startTime } = res.body;
+                    expect(now - startTime).to.be.within(1000, 1050);
+                });
         });
 
         describe("parsing requests bodies of different content types", () => {
