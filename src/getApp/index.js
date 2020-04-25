@@ -44,13 +44,32 @@ function getRouter(root, ajv) {
     return router;
 }
 
-express.response.delay = function(delayMs) {
-    const startPoint = new Date().getTime();
-    while (new Date().getTime() - startPoint <= delayMs) {
-        /* wait */
-    }
+express.response.delay = function(delayMs = 0) {
+    this.delayMs = delayMs;
+
     return this;
 };
+
+function delayFn(req, res, next) {
+    const original = res.end;
+
+    res.end = function(...args) {
+        const delayMs = res.delayMs || 0;
+        if (res.finished) {
+            return;
+        }
+        if (delayMs) {
+            setTimeout(function() {
+                original.apply(res, args);
+            }, delayMs);
+            return;
+        }
+
+        original.apply(res, args);
+    };
+
+    next();
+}
 
 module.exports = function getApp(options) {
     const ajv = new Ajv();
@@ -58,6 +77,7 @@ module.exports = function getApp(options) {
     const server = express()
         // Delay requests by the specified amount of time
         .use(slow({ delay }))
+        .use(delayFn)
         // Add cors headers
         .use(cors({ origin: /.*/, credentials: true }))
         // Parse common bodies

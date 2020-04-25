@@ -104,6 +104,12 @@ describe("getApp", () => {
                             const now = new Date().getTime()
                             res.delay(1000).send({startTime: now})
                         }
+                    `,
+                    "post.js": `
+                        module.exports = (req, res) => {
+                            const now = new Date().getTime()
+                            res.set("start-time", now).delay(500).sendStatus(200)
+                        }
                     `
                 },
                 "get.js": handlerFileContent,
@@ -136,14 +142,31 @@ describe("getApp", () => {
             });
         });
 
-        it("handles response delay per route", () => {
-            return request(getApp(baseOptions))
-                .get("/delay")
-                .expect(function(res) {
-                    const now = new Date().getTime();
-                    const { startTime } = res.body;
-                    expect(now - startTime).to.be.within(1000, 1050);
-                });
+        describe("handles delay per route", () => {
+            it("with send", () => {
+                return request(getApp(baseOptions))
+                    .get("/delay")
+                    .expect(200)
+                    .expect(function(res) {
+                        const now = new Date().getTime();
+                        const { startTime } = res.body;
+                        expect(now - startTime).to.be.within(1000, 1050);
+                    });
+            });
+
+            it("with sendStatus", () => {
+                return request(getApp(baseOptions))
+                    .post("/delay")
+                    .expect(200)
+                    .expect(function(res) {
+                        const now = new Date().getTime();
+                        const startTime = parseInt(
+                            res.header["start-time"],
+                            10
+                        );
+                        expect(now - startTime).to.be.within(500, 550);
+                    });
+            });
         });
 
         describe("parsing requests bodies of different content types", () => {
