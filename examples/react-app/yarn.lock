@@ -2161,17 +2161,17 @@
     lodash "^4.17.10"
     yargs "^11.0.0"
 
-"@staticdeploy/mock-server@^1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@staticdeploy/mock-server/-/mock-server-1.11.0.tgz#15119be6750cc821c7611b0881317107e5dcdeb2"
-  integrity sha512-8E4Mp6OsxcntKVUaDh4MEG4isccgGlDYdnf0kX44EcGwWwK7edAuGg805KWjvlC5cPoQRP8vhECi0+BtYi9heQ==
+"@staticdeploy/mock-server@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@staticdeploy/mock-server/-/mock-server-2.0.0.tgz#c8ac53d885e3afe95371ebfc797ba945daa12042"
+  integrity sha512-Xt49izTK9/a2jViscZtb/7u/lz4C8onOK0ca8pfGNBlRWjX09k+ADunERaXbwL0BJMCCSwvOIAeTLcf+4yz7Ag==
   dependencies:
     "@staticdeploy/app-config" "^2.0.1"
-    ajv "^6.10.2"
+    ajv "^6.12.2"
     body-parser "^1.18.3"
-    chalk "^3.0.0"
+    chalk "^4.0.0"
     connect-slow "^0.4.0"
-    cookie-parser "^1.4.4"
+    cookie-parser "^1.4.5"
     cors "^2.8.5"
     decache "^4.5.0"
     del "^5.1.0"
@@ -2182,10 +2182,10 @@
     fs-readdir-recursive "^1.1.0"
     lodash "^4.17.15"
     methods "^1.1.2"
-    node-watch "^0.6.3"
+    node-watch "^0.6.4"
     selfsigned "^1.10.7"
     watch "^1.0.2"
-    yargs "^15.0.2"
+    yargs "^15.3.1"
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
@@ -2733,7 +2733,7 @@ ajv@^6.10.0, ajv@^6.10.2:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^6.12.0:
+ajv@^6.12.0, ajv@^6.12.2:
   version "6.12.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.2.tgz#c629c5eced17baf314437918d2da88c99d5958cd"
   integrity sha512-k+V+hzjm5q/Mr8ef/1Y9goCmlsK4I6Sm74teeyGvFk1XrOsbsKLjEdrvny42CZ+a8sXbk8KWpY/bDwS+FLL2UQ==
@@ -3721,10 +3721,10 @@ chalk@^2.0.1, chalk@^2.4.1:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
-  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+chalk@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -4133,7 +4133,7 @@ convert-source-map@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.5.0.tgz#9acd70851c6d5dfdd93d9282e5edf94a03ff46b5"
 
-cookie-parser@^1.4.4:
+cookie-parser@^1.4.5:
   version "1.4.5"
   resolved "https://registry.yarnpkg.com/cookie-parser/-/cookie-parser-1.4.5.tgz#3e572d4b7c0c80f9c61daf604e4336831b5d1d49"
   integrity sha512-f13bPUj/gG/5mDr+xLmSxxDsB9DQiTIfhJS/sqjrmfAWiAN+x2O4i/XguTL9yDZ+/IFDanJ+5x7hC4CXT9Tdzw==
@@ -8707,7 +8707,7 @@ node-releases@^1.1.52, node-releases@^1.1.53:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.53.tgz#2d821bfa499ed7c5dffc5e2f28c88e78a08ee3f4"
   integrity sha512-wp8zyQVwef2hpZ/dJH7SfSrIPD6YoJz6BDQDpGEkcA0s3LpAQoxBIYmfIq6QAhC1DhwsyCgTaTTcONwX8qzCuQ==
 
-node-watch@^0.6.3:
+node-watch@^0.6.4:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/node-watch/-/node-watch-0.6.4.tgz#50e564046eb7be15151c25f9c5aac4b5f495c291"
   integrity sha512-cI6CHzivIFESe8djiK3Wh90CtWQBxLwMem8x8S+2GSvCvFgoMuOKVlfJtQ/2v3Afg3wOnHl/+tXotEs8z5vOrg==
@@ -13200,7 +13200,7 @@ yargs@^13.3.0:
     y18n "^4.0.0"
     yargs-parser "^13.1.1"
 
-yargs@^15.0.2:
+yargs@^15.3.1:
   version "15.3.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.3.1.tgz#9505b472763963e54afe60148ad27a330818e98b"
   integrity sha512-92O1HWEjw27sBfgmXiixJWT5hRBp2eobqXicLtPBIDBhYB+1HpwZlXmbW2luivBJHBzki+7VyCLRtAkScbTBQA==
