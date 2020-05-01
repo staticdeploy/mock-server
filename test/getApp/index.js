@@ -11,7 +11,7 @@ describe("getApp", () => {
         delay: 0,
         root: join(tmpdir(), "mock-server/getApp/index"),
         serveConfig: false,
-        middleware: "middleware.js"
+        middleware: "middleware.js",
     };
 
     afterEach(() => {
@@ -22,8 +22,8 @@ describe("getApp", () => {
         request: {
             query: {
                 type: "object",
-                additionalProperties: false
-            }
+                additionalProperties: false,
+            },
         },
         response: {
             body: {
@@ -32,21 +32,21 @@ describe("getApp", () => {
                     method: { type: "string" },
                     path: { type: "string" },
                     params: { type: "object" },
-                    body: { type: "object" }
-                }
-            }
-        }
+                    body: { type: "object" },
+                },
+            },
+        },
     };
     const updateUserSchema = {
         request: {
             body: {
                 type: "object",
                 properties: {
-                    key: { type: "string" }
+                    key: { type: "string" },
                 },
-                additionalProperties: false
-            }
-        }
+                additionalProperties: false,
+            },
+        },
     };
 
     describe("returns an express app", () => {
@@ -75,12 +75,12 @@ describe("getApp", () => {
                         "get.js": handlerFileContent,
                         "get.schema.json": JSON.stringify(usersSchema),
                         "put.js": handlerFileContent,
-                        nonHandler: handlerFileContent
+                        nonHandler: handlerFileContent,
                     },
                     "get.js": handlerFileContent,
                     "post.js": handlerFileContent,
                     "post.schema.json": JSON.stringify(updateUserSchema),
-                    "nonHandler.js": handlerFileContent
+                    "nonHandler.js": handlerFileContent,
                 },
                 cookie: {
                     set: {
@@ -89,14 +89,14 @@ describe("getApp", () => {
                             module.exports = (req, res) => {
                                 res.cookie("cookie", "test").send();
                             };
-                        `
+                        `,
                     },
                     // Returns request cookies
                     "get.js": `
                         module.exports = (req, res) => {
                             res.send(req.cookies)
                         };
-                    `
+                    `,
                 },
                 delay: {
                     "get.js": `
@@ -110,10 +110,10 @@ describe("getApp", () => {
                             const now = new Date().getTime()
                             res.set("start-time", now).delay(500).sendStatus(200)
                         }
-                    `
+                    `,
                 },
                 "get.js": handlerFileContent,
-                post: handlerFileContent
+                post: handlerFileContent,
             });
         });
 
@@ -137,7 +137,7 @@ describe("getApp", () => {
                     .get("/cookie")
                     .set("Cookie", "cookie=test")
                     .expect({
-                        cookie: "test"
+                        cookie: "test",
                     });
             });
         });
@@ -147,7 +147,7 @@ describe("getApp", () => {
                 return request(getApp(baseOptions))
                     .get("/delay")
                     .expect(200)
-                    .expect(function(res) {
+                    .expect(function (res) {
                         const now = new Date().getTime();
                         const { startTime } = res.body;
                         expect(now - startTime).to.be.within(1000, 1050);
@@ -158,7 +158,7 @@ describe("getApp", () => {
                 return request(getApp(baseOptions))
                     .post("/delay")
                     .expect(200)
-                    .expect(function(res) {
+                    .expect(function (res) {
                         const now = new Date().getTime();
                         const startTime = parseInt(
                             res.header["start-time"],
@@ -180,11 +180,11 @@ describe("getApp", () => {
                         method: "PUT",
                         path: "/users/myUserId",
                         params: {
-                            userId: "myUserId"
+                            userId: "myUserId",
                         },
                         body: {
-                            key: "value"
-                        }
+                            key: "value",
+                        },
                     });
             });
 
@@ -199,9 +199,9 @@ describe("getApp", () => {
                             method: "PUT",
                             path: "/users/myUserId",
                             params: {
-                                userId: "myUserId"
+                                userId: "myUserId",
                             },
-                            body: "Hello world!"
+                            body: "Hello world!",
                         });
                 });
                 it("text/xml", () => {
@@ -214,9 +214,9 @@ describe("getApp", () => {
                             method: "PUT",
                             path: "/users/myUserId",
                             params: {
-                                userId: "myUserId"
+                                userId: "myUserId",
                             },
-                            body: "<tag></tag>"
+                            body: "<tag></tag>",
                         });
                 });
             });
@@ -231,12 +231,12 @@ describe("getApp", () => {
                         method: "PUT",
                         path: "/users/myUserId",
                         params: {
-                            userId: "myUserId"
+                            userId: "myUserId",
                         },
                         body: {
                             greeting: "hello",
-                            target: "world"
-                        }
+                            target: "world",
+                        },
                     });
             });
 
@@ -250,7 +250,7 @@ describe("getApp", () => {
                         method: "PUT",
                         path: "/users/myUserId",
                         params: {
-                            userId: "myUserId"
+                            userId: "myUserId",
                         },
                         // Result of Buffer.from("<tag></tag>").toJSON()
                         body: {
@@ -266,9 +266,9 @@ describe("getApp", () => {
                                 116,
                                 97,
                                 103,
-                                62
-                            ]
-                        }
+                                62,
+                            ],
+                        },
                     });
             });
         });
@@ -282,9 +282,9 @@ describe("getApp", () => {
                         method: "GET",
                         path: "/users/myUserId",
                         params: {
-                            userId: "myUserId"
+                            userId: "myUserId",
                         },
-                        body: {}
+                        body: {},
                     });
             });
 
@@ -292,12 +292,12 @@ describe("getApp", () => {
                 return request(getApp(baseOptions))
                     .get("/users/myUserId")
                     .query({
-                        foo: "bar"
+                        foo: "bar",
                     })
                     .expect(400)
                     .expect({
                         error: "Bad Request",
-                        message: "query should NOT have additional properties"
+                        message: "query should NOT have additional properties",
                     });
             });
 
@@ -310,11 +310,11 @@ describe("getApp", () => {
                         method: "PUT",
                         path: "/users/myUserId",
                         params: {
-                            userId: "myUserId"
+                            userId: "myUserId",
                         },
                         body: {
-                            key: "value"
-                        }
+                            key: "value",
+                        },
                     });
             });
 
@@ -326,7 +326,7 @@ describe("getApp", () => {
                         method: "GET",
                         path: "/users",
                         params: {},
-                        body: {}
+                        body: {},
                     });
             });
 
@@ -340,8 +340,8 @@ describe("getApp", () => {
                         path: "/users",
                         params: {},
                         body: {
-                            key: "value"
-                        }
+                            key: "value",
+                        },
                     });
             });
 
@@ -350,13 +350,13 @@ describe("getApp", () => {
                     .post("/users")
                     .send({
                         key: "value",
-                        foo: "bar"
+                        foo: "bar",
                     })
                     .expect(400)
                     .expect({
                         error: "Bad Request",
                         message:
-                            "requestBody should NOT have additional properties"
+                            "requestBody should NOT have additional properties",
                     });
             });
 
@@ -368,7 +368,7 @@ describe("getApp", () => {
                         method: "GET",
                         path: "/",
                         params: {},
-                        body: {}
+                        body: {},
                     });
             });
 
@@ -379,9 +379,7 @@ describe("getApp", () => {
             });
 
             it("case: POST / , non existing method", () => {
-                return request(getApp(baseOptions))
-                    .post("/")
-                    .expect(404);
+                return request(getApp(baseOptions)).post("/").expect(404);
             });
         });
 
@@ -424,7 +422,7 @@ describe("getApp", () => {
 
     it("throws an error if a handler file doens't export a function", () => {
         createTree(baseOptions.root, {
-            "get.js": ""
+            "get.js": "",
         });
         const troublemaker = () => {
             getApp(baseOptions);

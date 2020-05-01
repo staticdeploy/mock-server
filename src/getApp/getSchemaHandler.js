@@ -5,7 +5,7 @@ const { get } = require("lodash");
 const responseValidationErrorHandler = require("./responseValidationErrorHandler");
 const interopRequire = require("./interopRequire");
 
-const initValidator = function(ajv, schema) {
+const initValidator = function (ajv, schema) {
     const validateRequestBody = get(schema, "request.body")
         ? ajv.compile(get(schema, "request.body"))
         : () => true;
@@ -22,12 +22,12 @@ const initValidator = function(ajv, schema) {
         validateRequestBody: validateRequestBody,
         validateRequestQuery: validateRequestQuery,
         validateRequestParams: validateRequestParams,
-        validateResponseBody: validateResponseBody
+        validateResponseBody: validateResponseBody,
     };
 };
 
 function validateWrapper(ajv) {
-    return function(req, validator, data, errorSource) {
+    return function (req, validator, data, errorSource) {
         if (!data) {
             return;
         }
@@ -50,7 +50,7 @@ function validateWrapper(ajv) {
  *  - response.body: json schema to validate response body created in the
  *    handler
  */
-module.exports = function(ajv, schemaRequirePath, originalHandler) {
+module.exports = function (ajv, schemaRequirePath, originalHandler) {
     decache(schemaRequirePath);
     const schema = interopRequire(schemaRequirePath);
     if (schema && Object.keys(schema).length > 0) {
@@ -58,16 +58,16 @@ module.exports = function(ajv, schemaRequirePath, originalHandler) {
             validateRequestParams,
             validateRequestQuery,
             validateRequestBody,
-            validateResponseBody
+            validateResponseBody,
         } = initValidator(ajv, schema);
         const validate = validateWrapper(ajv);
-        const requestValidator = function(req, _res, next) {
+        const requestValidator = function (req, _res, next) {
             validate(req, validateRequestParams, req.params, "params");
             validate(req, validateRequestQuery, req.query, "query");
             validate(req, validateRequestBody, req.body, "requestBody");
             next();
         };
-        const responseValidator = mung.json(function(body, req) {
+        const responseValidator = mung.json(function (body, req) {
             validate(req, validateResponseBody, body, "response");
             return body;
         });

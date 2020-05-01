@@ -14,7 +14,7 @@ module.exports = function toExpressPath(handlerPath) {
             // Remove the last token `${method}.js`
             .slice(0, -1)
             // Convert tokens with the form "{param}" into ":param"
-            .map(token =>
+            .map((token) =>
                 /^{.*}$/.test(token) ? `:${token.slice(1, -1)}` : token
             )
             // Join tokens with / characters

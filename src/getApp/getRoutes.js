@@ -9,7 +9,7 @@ const toExpressPath = require("./toExpressPath");
  *  a list of route objects which will be used to configure the express router
  */
 module.exports = function getRoutes(root) {
-    return getHandlersPaths(root).map(handlerPath => {
+    return getHandlersPaths(root).map((handlerPath) => {
         const fileName = basename(handlerPath, extname(handlerPath));
         return {
             handlerRequirePath: join(resolve(root), handlerPath),
@@ -19,7 +19,7 @@ module.exports = function getRoutes(root) {
                 resolve(root),
                 dirname(handlerPath),
                 `${fileName}.schema.json`
-            )
+            ),
         };
     });
 };

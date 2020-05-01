@@ -9,7 +9,7 @@ describe("error handler", () => {
         server = express()
             .get("/teapot-error", (req, res) => {
                 res.status(418).send({
-                    message: "my error message"
+                    message: "my error message",
                 });
             })
             .get("/validation-error", (req, res, next) => {
@@ -20,21 +20,15 @@ describe("error handler", () => {
     });
 
     it("returns correct error if schemaValidationFailed falsy", () => {
-        return request(server)
-            .get("/teapot-error")
-            .expect(418)
-            .expect({
-                message: "my error message"
-            });
+        return request(server).get("/teapot-error").expect(418).expect({
+            message: "my error message",
+        });
     });
 
     it("returns correctly if schemaValidationFailed truly", () => {
-        return request(server)
-            .get("/validation-error")
-            .expect(400)
-            .expect({
-                message: "some error",
-                error: "Bad Request"
-            });
+        return request(server).get("/validation-error").expect(400).expect({
+            message: "some error",
+            error: "Bad Request",
+        });
     });
 });

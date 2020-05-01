@@ -15,14 +15,14 @@ describe("getRoutes", () => {
                 "{userId}": {
                     "get.js": "",
                     "put.js": "",
-                    nonHandler: ""
+                    nonHandler: "",
                 },
                 "get.js": "",
                 "post.js": "",
-                "nonHandler.js": ""
+                "nonHandler.js": "",
             },
             "get.js": "",
-            post: ""
+            post: "",
         });
     });
     after(() => {
@@ -37,32 +37,32 @@ describe("getRoutes", () => {
                     handlerRequirePath: `${root}/users/{userId}/get.js`,
                     method: "get",
                     path: "/users/:userId",
-                    schemaRequirePath: `${root}/users/{userId}/get.schema.json`
+                    schemaRequirePath: `${root}/users/{userId}/get.schema.json`,
                 },
                 {
                     handlerRequirePath: `${root}/users/{userId}/put.js`,
                     method: "put",
                     path: "/users/:userId",
-                    schemaRequirePath: `${root}/users/{userId}/put.schema.json`
+                    schemaRequirePath: `${root}/users/{userId}/put.schema.json`,
                 },
                 {
                     handlerRequirePath: `${root}/users/get.js`,
                     method: "get",
                     path: "/users",
-                    schemaRequirePath: `${root}/users/get.schema.json`
+                    schemaRequirePath: `${root}/users/get.schema.json`,
                 },
                 {
                     handlerRequirePath: `${root}/users/post.js`,
                     method: "post",
                     path: "/users",
-                    schemaRequirePath: `${root}/users/post.schema.json`
+                    schemaRequirePath: `${root}/users/post.schema.json`,
                 },
                 {
                     handlerRequirePath: `${root}/get.js`,
                     method: "get",
                     path: "/",
-                    schemaRequirePath: `${root}/get.schema.json`
-                }
+                    schemaRequirePath: `${root}/get.schema.json`,
+                },
             ],
             "path"
         );
