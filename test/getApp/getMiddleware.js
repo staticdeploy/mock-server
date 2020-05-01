@@ -21,7 +21,7 @@ describe("getMiddleware", () => {
 
     it("if the specified file doesn't export an array, throws an error", () => {
         createTree(root, {
-            "no-array-middleware.js": "module.exports = 0"
+            "no-array-middleware.js": "module.exports = 0",
         });
         const troublemaker = () =>
             getMiddleware(join(root, "no-array-middleware.js"));
@@ -32,7 +32,7 @@ describe("getMiddleware", () => {
 
     it("returns the array exported by the file", () => {
         createTree(root, {
-            "middleware.js": "module.exports = []"
+            "middleware.js": "module.exports = []",
         });
         const middleware = getMiddleware(join(root, "middleware.js"));
         expect(middleware).to.deep.equal([]);

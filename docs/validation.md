@@ -87,7 +87,7 @@ The response produced by the following handler file
 ```js
 module.exports = (req, res) => {
   res.status(201).send({
-    name: req.body.name
+    name: req.body.name,
   });
 };
 ```
@@ -98,7 +98,7 @@ The response produced by the following handler file would be blocked, and a
 ```js
 module.exports = (req, res) => {
   res.status(201).send({
-    Name: req.body.name
+    Name: req.body.name,
   });
 };
 ```
@@ -154,11 +154,11 @@ would go through:
 module.exports = (req, res) => {
   res.status(200).send([
     {
-      name: "Alice"
+      name: "Alice",
     },
     {
-      name: "Bob"
-    }
+      name: "Bob",
+    },
   ]);
 };
 ```
@@ -170,11 +170,11 @@ The response produced by the following handler file would be blocked, and a
 module.exports = (req, res) => {
   res.status(201).send([
     {
-      Name: "Alice"
+      Name: "Alice",
     },
     {
-      Name: "Bob"
-    }
+      Name: "Bob",
+    },
   ]);
 };
 ```

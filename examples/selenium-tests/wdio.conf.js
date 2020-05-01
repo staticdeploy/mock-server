@@ -25,5 +25,5 @@ exports.config = {
         console.log("Stopping mock and static servers...");
         mockServer.kill();
         staticServer.kill();
-    }
+    },
 };

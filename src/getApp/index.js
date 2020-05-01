@@ -14,10 +14,11 @@ const getMiddleware = require("./getMiddleware");
 const interopRequire = require("./interopRequire");
 const getSchemaHandlers = require("./getSchemaHandler");
 const requestValidationErrorHandler = require("./requestValidationErrorHandler");
+const perRouteDelayer = require("./perRouteDelayer");
 
 function getRouter(root, ajv) {
     const router = express.Router();
-    getRoutes(root).forEach(route => {
+    getRoutes(root).forEach((route) => {
         const { method, path, handlerRequirePath, schemaRequirePath } = route;
         // Since this function can be run multiple times when the watch option
         // is enabled, before getting the handler we need to delete the
@@ -44,12 +45,18 @@ function getRouter(root, ajv) {
     return router;
 }
 
+express.response.delay = function (delayMs = 0) {
+    this.delayMs = delayMs;
+    return this;
+};
+
 module.exports = function getApp(options) {
     const ajv = new Ajv();
     const { delay, root, serveConfig } = options;
     const server = express()
         // Delay requests by the specified amount of time
         .use(slow({ delay }))
+        .use(perRouteDelayer)
         // Add cors headers
         .use(cors({ origin: /.*/, credentials: true }))
         // Parse common bodies
@@ -62,7 +69,7 @@ module.exports = function getApp(options) {
         // Attach custom middleware and routes
         .use([
             ...getMiddleware(join(options.root, options.middleware)),
-            getRouter(root, ajv)
+            getRouter(root, ajv),
         ])
         // Custom error handlers
         .use(requestValidationErrorHandler);
@@ -74,7 +81,7 @@ module.exports = function getApp(options) {
             "/app-config.js",
             getConfigScriptHandler({
                 rawConfig: process.env,
-                configKeyPrefix: "APP_CONFIG_"
+                configKeyPrefix: "APP_CONFIG_",
             })
         );
     }

@@ -19,22 +19,22 @@ describe("get schema handlers", () => {
             path: req.path,
             params: req.params,
             body: req.body,
-            query: req.query
+            query: req.query,
         });
     };
     const requestParamsSchema = {
         type: "object",
         properties: {
             param1: { type: "string" },
-            param2: { type: "number" }
-        }
+            param2: { type: "number" },
+        },
     };
     const requestQuerySchema = {
         type: "object",
         properties: {
-            foo: { type: "string" }
+            foo: { type: "string" },
         },
-        required: ["foo"]
+        required: ["foo"],
     };
     const requestBodySchema = {
         type: "object",
@@ -42,12 +42,12 @@ describe("get schema handlers", () => {
             list: {
                 type: "array",
                 items: {
-                    type: "number"
-                }
+                    type: "number",
+                },
             },
-            testString: { type: "string" }
+            testString: { type: "string" },
         },
-        required: ["list"]
+        required: ["list"],
     };
     const responseBodySchema = {
         type: "object",
@@ -56,19 +56,19 @@ describe("get schema handlers", () => {
             path: { type: "string" },
             params: {
                 type: "object",
-                additionalProperties: true
+                additionalProperties: true,
             },
             body: {
                 type: "object",
-                additionalProperties: true
+                additionalProperties: true,
             },
             query: {
                 type: "object",
-                additionalProperties: true
-            }
+                additionalProperties: true,
+            },
         },
         additionalProperties: false,
-        required: ["query", "body", "params", "path", "method"]
+        required: ["query", "body", "params", "path", "method"],
     };
 
     beforeEach(() => {
@@ -76,27 +76,27 @@ describe("get schema handlers", () => {
         createTree(root, {
             "empty-schema.json": "{}",
             "only-params.json": JSON.stringify({
-                request: { params: requestParamsSchema }
+                request: { params: requestParamsSchema },
             }),
             "only-query.json": JSON.stringify({
-                request: { query: requestQuerySchema }
+                request: { query: requestQuerySchema },
             }),
             "only-req-body.json": JSON.stringify({
-                request: { body: requestBodySchema }
+                request: { body: requestBodySchema },
             }),
             "only-response.json": JSON.stringify({
-                response: { body: responseBodySchema }
+                response: { body: responseBodySchema },
             }),
             "all.json": JSON.stringify({
                 request: {
                     params: requestParamsSchema,
                     query: requestQuerySchema,
-                    body: requestBodySchema
+                    body: requestBodySchema,
                 },
                 response: {
-                    body: responseBodySchema
-                }
-            })
+                    body: responseBodySchema,
+                },
+            }),
         });
         server = express().use(
             bodyParser.json({ limit: "1gb", strict: false })
@@ -131,10 +131,10 @@ describe("get schema handlers", () => {
                     path: "/my-api/foo/3",
                     params: {
                         param1: "foo",
-                        param2: 3
+                        param2: 3,
                     },
                     query: {},
-                    body: {}
+                    body: {},
                 });
         });
 
@@ -153,7 +153,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "params.param2 should be number"
+                    message: "params.param2 should be number",
                 });
         });
     });
@@ -168,17 +168,17 @@ describe("get schema handlers", () => {
             return request(server.get("/my-api", handler))
                 .get("/my-api")
                 .query({
-                    foo: "bar"
+                    foo: "bar",
                 })
                 .expect(200)
                 .expect({
                     method: "GET",
                     path: "/my-api",
                     query: {
-                        foo: "bar"
+                        foo: "bar",
                     },
                     params: {},
-                    body: {}
+                    body: {},
                 });
         });
 
@@ -197,7 +197,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "query should have required property 'foo'"
+                    message: "query should have required property 'foo'",
                 });
         });
     });
@@ -213,7 +213,7 @@ describe("get schema handlers", () => {
                 .post("/my-api")
                 .send({
                     list: [1, 2, 34],
-                    testString: "my string"
+                    testString: "my string",
                 })
                 .expect(200)
                 .expect({
@@ -223,8 +223,8 @@ describe("get schema handlers", () => {
                     params: {},
                     body: {
                         list: [1, 2, 34],
-                        testString: "my string"
-                    }
+                        testString: "my string",
+                    },
                 });
         });
 
@@ -241,12 +241,12 @@ describe("get schema handlers", () => {
             )
                 .post("/my-api")
                 .send({
-                    list: [1, "foo"]
+                    list: [1, "foo"],
                 })
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "requestBody.list[1] should be number"
+                    message: "requestBody.list[1] should be number",
                 });
         });
     });
@@ -266,14 +266,14 @@ describe("get schema handlers", () => {
                     path: "/my-api",
                     query: {},
                     params: {},
-                    body: {}
+                    body: {},
                 });
         });
 
         it("throws during validation", () => {
             const badResponseHandler = (req, res) => {
                 res.status(200).send({
-                    another: "body"
+                    another: "body",
                 });
             };
             const handler = getSchemaHandler(
@@ -286,7 +286,7 @@ describe("get schema handlers", () => {
                 .expect(500)
                 .expect({
                     error: "Bad Response",
-                    message: "response should NOT have additional properties"
+                    message: "response should NOT have additional properties",
                 });
         });
     });
@@ -301,25 +301,25 @@ describe("get schema handlers", () => {
             return request(server.post("/my-api/:param1/:param2", handler))
                 .post("/my-api/param/34")
                 .query({
-                    foo: "bar"
+                    foo: "bar",
                 })
                 .send({
-                    list: [12, 23, 56]
+                    list: [12, 23, 56],
                 })
                 .expect(200)
                 .expect({
                     method: "POST",
                     path: "/my-api/param/34",
                     query: {
-                        foo: "bar"
+                        foo: "bar",
                     },
                     params: {
                         param1: "param",
-                        param2: 34
+                        param2: 34,
                     },
                     body: {
-                        list: [12, 23, 56]
-                    }
+                        list: [12, 23, 56],
+                    },
                 });
         });
 
@@ -338,7 +338,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "query should have required property 'foo'"
+                    message: "query should have required property 'foo'",
                 });
         });
     });

@@ -39,7 +39,7 @@ module.exports = function getCert() {
                     digitalSignature: true,
                     nonRepudiation: true,
                     keyEncipherment: true,
-                    dataEncipherment: true
+                    dataEncipherment: true,
                 },
                 {
                     name: "subjectAltName",
@@ -52,10 +52,10 @@ module.exports = function getCert() {
                         { type: 2, value: "[::1]" },
                         // type 7 is IP
                         { type: 7, ip: "127.0.0.1" },
-                        { type: 7, ip: "fe80::1" }
-                    ]
-                }
-            ]
+                        { type: 7, ip: "fe80::1" },
+                    ],
+                },
+            ],
         });
         writeFileSync(certPath, pems.cert);
         writeFileSync(keyPath, pems.private);
@@ -63,6 +63,6 @@ module.exports = function getCert() {
 
     return {
         cert: readFileSync(certPath),
-        key: readFileSync(keyPath)
+        key: readFileSync(keyPath),
     };
 };

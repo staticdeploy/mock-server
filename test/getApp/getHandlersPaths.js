@@ -16,19 +16,19 @@ describe("getHandlersPaths", () => {
                 "{userId}": {
                     "get.js": "",
                     "put.js": "",
-                    nonHandler: ""
+                    nonHandler: "",
                 },
                 "get.js": "",
                 "get.schema.js": "",
                 "post.js": "",
-                "nonHandler.js": ""
+                "nonHandler.js": "",
             },
             typescripts: {
                 "get.ts": "",
-                "post.ts": ""
+                "post.ts": "",
             },
             "get.js": "",
-            post: ""
+            post: "",
         });
     });
     after(() => {
@@ -40,7 +40,7 @@ describe("getHandlersPaths", () => {
             const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
-            paths.forEach(path => {
+            paths.forEach((path) => {
                 expect(path).to.be.a("string");
             });
         });
@@ -49,7 +49,7 @@ describe("getHandlersPaths", () => {
             const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
-            paths.forEach(path => {
+            paths.forEach((path) => {
                 expect(path).not.to.satisfy(isAbsolute);
             });
         });
@@ -58,7 +58,7 @@ describe("getHandlersPaths", () => {
             const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
-            paths.forEach(path => {
+            paths.forEach((path) => {
                 expect(extname(path)).not.to.equal("");
             });
         });
@@ -67,7 +67,7 @@ describe("getHandlersPaths", () => {
             const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
-            paths.forEach(path => {
+            paths.forEach((path) => {
                 const isBasenameHttpMethod = includes(
                     methods,
                     basename(path, extname(path))
@@ -80,7 +80,7 @@ describe("getHandlersPaths", () => {
             const paths = getHandlersPaths(root);
             // Ensure we're actually testing something
             expect(paths.length).not.to.equal(0);
-            paths.forEach(path => {
+            paths.forEach((path) => {
                 expect(path).not.to.match(/nonHandler\.js$/);
                 expect(path).not.to.match(/nonHandler$/);
             });
@@ -96,7 +96,7 @@ describe("getHandlersPaths", () => {
             "users/post.js",
             "typescripts/get.ts",
             "typescripts/post.ts",
-            "get.js"
+            "get.js",
         ].sort();
         expect(paths).to.deep.equal(expectedPaths);
     });
