@@ -1,3 +1,14 @@
+## 2.0.0 (May 1, 2020)
+
+Features:
+
+- add `delay` method to express response object to allow delaying individual
+  responses
+
+Breaking changes:
+
+- require node >= v10
+
 ## 1.11.0 (January 27, 2020)
 
 Features:
