@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   qa:
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:16
     steps:
       - checkout
       - run:
@@ -22,7 +22,7 @@ jobs:
             ./codecov
   npm-publish:
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:16
     steps:
       - checkout
       - run:
