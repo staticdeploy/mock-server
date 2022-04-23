@@ -58,8 +58,7 @@
     "methods": "^1.1.2",
     "node-watch": "^0.7.3",
     "selfsigned": "^2.0.1",
-    "watch": "^1.0.2",
-    "yargs": "^15.3.1"
+    "yargs": "^17.4.1"
   },
   "devDependencies": {
     "chai": "^4.3.6",
