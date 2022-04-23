@@ -153,7 +153,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "params.param2 should be number",
+                    message: "params/param2 must be number",
                 });
         });
     });
@@ -197,7 +197,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "query should have required property 'foo'",
+                    message: "query must have required property 'foo'",
                 });
         });
     });
@@ -246,7 +246,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "requestBody.list[1] should be number",
+                    message: "requestBody/list/1 must be number",
                 });
         });
     });
@@ -286,7 +286,7 @@ describe("get schema handlers", () => {
                 .expect(500)
                 .expect({
                     error: "Bad Response",
-                    message: "response should NOT have additional properties",
+                    message: "response must have required property 'query'",
                 });
         });
     });
@@ -338,7 +338,7 @@ describe("get schema handlers", () => {
                 .expect(400)
                 .expect({
                     error: "Bad Request",
-                    message: "query should have required property 'foo'",
+                    message: "query must have required property 'foo'",
                 });
         });
     });

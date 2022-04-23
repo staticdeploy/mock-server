@@ -1,3 +1,9 @@
+## Unreleased
+
+Breaking changes:
+
+- upgrade ajv validation from v6 to v8
+
 ## 2.0.0 (May 1, 2020)
 
 Features:

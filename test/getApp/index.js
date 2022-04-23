@@ -256,17 +256,7 @@ describe("getApp", () => {
                         body: {
                             type: "Buffer",
                             data: [
-                                60,
-                                116,
-                                97,
-                                103,
-                                62,
-                                60,
-                                47,
-                                116,
-                                97,
-                                103,
-                                62,
+                                60, 116, 97, 103, 62, 60, 47, 116, 97, 103, 62,
                             ],
                         },
                     });
@@ -297,7 +287,7 @@ describe("getApp", () => {
                     .expect(400)
                     .expect({
                         error: "Bad Request",
-                        message: "query should NOT have additional properties",
+                        message: "query must NOT have additional properties",
                     });
             });
 
@@ -356,7 +346,7 @@ describe("getApp", () => {
                     .expect({
                         error: "Bad Request",
                         message:
-                            "requestBody should NOT have additional properties",
+                            "requestBody must NOT have additional properties",
                     });
             });
 
