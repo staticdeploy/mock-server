@@ -31,7 +31,6 @@
   "scripts": {
     "test": "env NODE_PATH=src mocha --exit --recursive test",
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
-    "publish-coverage": "codecov",
     "prettier": "prettier '@(src|test|docs|examples)/**/*.@(js|md)'",
     "prettify": "yarn prettier --write",
     "lint:prettier": "yarn prettier --list-different",
@@ -62,7 +61,6 @@
   },
   "devDependencies": {
     "chai": "^4.3.6",
-    "codecov": "^3.8.3",
     "create-fs-tree": "^1.0.0",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",

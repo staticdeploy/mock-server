@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@3.2.2
 jobs:
   qa:
     docker:
@@ -14,9 +16,6 @@ jobs:
       - run:
           name: Run tests and calculate code coverage
           command: yarn coverage
-      - run:
-          name: Publish code coverage report
-          command: yarn publish-coverage
   npm-publish:
     docker:
       - image: circleci/node
@@ -33,7 +32,6 @@ jobs:
           command: npm publish
 
 workflows:
-  version: 2
   qa-npm:
     jobs:
       - qa:
@@ -41,6 +39,8 @@ workflows:
           filters:
             tags:
               only: /.*/
+          post-steps:
+            - codecov/upload
       - npm-publish:
           requires:
             - qa
