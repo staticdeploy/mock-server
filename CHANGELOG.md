@@ -1,4 +1,4 @@
-## Unreleased
+## 3.0.0 (Apr 24, 2022)
 
 Breaking changes:
 
