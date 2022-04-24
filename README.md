@@ -1,8 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/@staticdeploy/mock-server.svg)](https://www.npmjs.com/package/@staticdeploy/mock-server)
 [![build status](https://img.shields.io/circleci/project/github/staticdeploy/mock-server.svg)](https://circleci.com/gh/staticdeploy/mock-server)
 [![coverage status](https://codecov.io/github/staticdeploy/mock-server/coverage.svg?branch=master)](https://codecov.io/github/staticdeploy/mock-server?branch=master)
-[![dependency status](https://david-dm.org/staticdeploy/mock-server.svg)](https://david-dm.org/staticdeploy/mock-server)
-[![devDependency status](https://david-dm.org/staticdeploy/mock-server/dev-status.svg)](https://david-dm.org/staticdeploy/mock-server#info=devDependencies)
 
 # mock-server
 
