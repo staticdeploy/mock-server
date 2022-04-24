@@ -1,8 +1,8 @@
-version: 2
+version: 2.1
 jobs:
   qa:
     docker:
-      - image: circleci/node
+      - image: cimg/node:16.14.2
     steps:
       - checkout
       - run:
@@ -16,10 +16,13 @@ jobs:
           command: yarn coverage
       - run:
           name: Publish code coverage report
-          command: yarn publish-coverage
+          command: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov
   npm-publish:
     docker:
-      - image: circleci/node
+      - image: cimg/node:16.14.2
     steps:
       - checkout
       - run:
@@ -33,7 +36,6 @@ jobs:
           command: npm publish
 
 workflows:
-  version: 2
   qa-npm:
     jobs:
       - qa:

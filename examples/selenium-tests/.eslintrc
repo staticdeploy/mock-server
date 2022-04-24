@@ -1,9 +1,0 @@
-{
-    "extends": "react-app",
-    "globals": {
-        "browser": true
-    },
-    "env": {
-        "mocha": true
-    }
-}
