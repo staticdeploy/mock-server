@@ -29,6 +29,7 @@
     "api"
   ],
   "scripts": {
+    "start": "./src/bin/index.js",
     "test": "env NODE_PATH=src mocha --exit --recursive test",
     "coverage": "env NODE_ENV=test nyc --reporter=text --reporter=lcov npm run test",
     "prettier": "prettier '@(src|test|docs|examples)/**/*.@(js|md)'",
