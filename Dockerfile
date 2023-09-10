@@ -21,4 +21,6 @@ COPY src ./src
 
 USER node
 
-CMD /sbin/tini ./src/bin/index.js --port=${PORT} --root=${ROOT}
+ENTRYPOINT ["/sbin/tini", "--"]
+
+CMD ./src/bin/index.js --port=${PORT} --root=${ROOT}
