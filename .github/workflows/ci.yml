@@ -2,7 +2,7 @@ name: mock-server CI
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ master ]
     tags: '*'
   pull_request:
     branches: [ master, main ]
