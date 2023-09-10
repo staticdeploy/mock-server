@@ -38,12 +38,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Login to npm
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-      - name: Publish to npm
-        run: npm publish
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   docker-build:
     name: Build docker
