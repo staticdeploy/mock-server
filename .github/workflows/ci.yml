@@ -5,7 +5,7 @@ on:
     branches: [ master ]
     tags: '*'
   pull_request:
-    branches: [ master, main ]
+    branches: [ master ]
 
 jobs:
   qa:
