@@ -8,6 +8,7 @@ LABEL name="@staticdeploy/mock-server" \
 
 ENV PORT=3456
 ENV ROOT=mock-server
+ENV NODE_ENV=production
 
 WORKDIR /home/node/app
 
