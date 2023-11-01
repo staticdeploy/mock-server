@@ -59,7 +59,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=@staticdeploy/mock-server
+          DOCKER_IMAGE=staticdeploy/mock-server
           VERSION=latest
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
@@ -67,7 +67,7 @@ jobs:
           elif [[ $GITHUB_REF == refs/heads/main ]]; then
             VERSION=latest
           fi
-          TAGS="ghcr.io/${DOCKER_IMAGE}:${VERSION}"
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=image::${DOCKER_IMAGE}
       - name: Set up QEMU
